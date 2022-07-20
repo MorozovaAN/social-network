@@ -1,38 +1,51 @@
-.App {
-  text-align: center;
+.app-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-auto-rows: 100px auto;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  column-gap: 30px;
+  width: 100%;
+  padding: 20px;
+  background: aquamarine;
+  grid-column: 1/3;
+  box-sizing: border-box;
 }
-
-.App-link {
-  color: #61dafb;
+.navigation {
+  padding: 20px;
+  width: 100%;
+  height: 100vh;
+  background: cadetblue;
+  box-sizing: border-box;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navigation__list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation__list-item {
+  margin-bottom: 20px;
+}
+.navigation__list-link {
+  color: inherit;
+  text-decoration: none;
+}
+.navigation__list-link:hover {
+  color: darkblue;
+}
+.content {
+  padding: 20px;
+  width: 100%;
+  background: lightblue;
+  box-sizing: border-box;
+  height: 100vh;
+}
+.content__image {
+  width: 100%;
+  height: 200px;
+}
+.content__user-info {
+  display: flex;
+  column-gap: 20px;
 }
