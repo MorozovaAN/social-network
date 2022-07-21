@@ -1,0 +1,15 @@
+.content {
+  padding: 20px;
+  width: 100%;
+  background: lightblue;
+  box-sizing: border-box;
+  height: 100vh;
+}
+.img {
+  width: 100%;
+  height: 200px;
+}
+.userInfo {
+  display: flex;
+  column-gap: 20px;
+}

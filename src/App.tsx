@@ -1,17 +1,15 @@
 import React from "react";
 import "./App.css";
-import { Navbar } from "./components/Navbar";
-import { Profile } from "./components/Profile";
-import { Header } from "./components/Header";
+import { NavBar } from "./components/NavBar/Navbar";
+import { Profile } from "./components/Profile/Profile";
+import { Header } from "./components/Header/Header";
 
-function App() {
+export function App() {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar />
+      <NavBar />
       <Profile />
     </div>
   );
 }
-
-export default App;

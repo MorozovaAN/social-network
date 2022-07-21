@@ -1,14 +1,16 @@
 import React from "react";
+import style from "./Profile.module.css";
+import { MyPosts } from "./MyPosts/MyPosts";
 
 export const Profile = () => {
   return (
-    <div className="content">
+    <div className={style.content}>
       <img
         alt="bg-image"
-        className="content__image"
+        className={style.img}
         src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/horizontal-vivid-varitone-ocean-sunset-horizon-blur-abstraction-nickolay-loginov.jpg"
       />
-      <div className="content__user-info">
+      <div className={style.userInfo}>
         <img
           width="100"
           height="100"
@@ -22,6 +24,7 @@ export const Profile = () => {
           nesciunt numquam sapiente!
         </p>
       </div>
+      <MyPosts />
     </div>
   );
 };

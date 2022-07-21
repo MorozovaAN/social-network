@@ -1,0 +1,22 @@
+.navigation {
+  padding: 20px;
+  width: 100%;
+  height: 100vh;
+  background: cadetblue;
+  box-sizing: border-box;
+}
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.item {
+  margin-bottom: 20px;
+}
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+.link:hover {
+  color: #fff;
+}
