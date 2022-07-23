@@ -3,3 +3,10 @@
   grid-template-columns: 1fr 5fr;
   grid-auto-rows: 100px auto;
 }
+.content-wrapper {
+  padding: 20px;
+  width: 100%;
+  background: lightblue;
+  box-sizing: border-box;
+  height: 100vh;
+}

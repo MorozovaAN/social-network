@@ -4,7 +4,7 @@ import { MyPosts } from "./MyPosts/MyPosts";
 
 export const Profile = () => {
   return (
-    <div className={style.content}>
+    <div>
       <img
         alt="bg-image"
         className={style.img}
