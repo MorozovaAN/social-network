@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./NavBar.module.css";
+import { NavLink } from "react-router-dom";
 import { Dialogues } from "../ Dialogues/Dialogues";
 
 export const NavBar = () => {
@@ -7,19 +8,31 @@ export const NavBar = () => {
     <nav className={style.navigation}>
       <ul className={style.list}>
         <li className={style.item}>
-          <a href="/profile" className={style.link}>
+          <NavLink
+            to="/profile"
+            className={style.link}
+            activeClassName={style.active}
+          >
             Profile
-          </a>
+          </NavLink>
         </li>
         <li className={style.item}>
-          <a href="/dialogues" className={style.link}>
-            Messages
-          </a>
+          <NavLink
+            to="/dialogues"
+            className={style.link}
+            activeClassName={style.active}
+          >
+            Dialogues
+          </NavLink>
         </li>
         <li className={style.item}>
-          <a href="src/components/NavBar/Navbar#" className={style.link}>
+          <NavLink
+            to="src/components/NavBar/Navbar#"
+            className={style.link}
+            activeClassName={style.active}
+          >
             Main content
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>

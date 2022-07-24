@@ -20,3 +20,6 @@
 .link:hover {
   color: #fff;
 }
+.active {
+  color: #2a2a75;
+}
