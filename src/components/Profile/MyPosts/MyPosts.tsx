@@ -8,8 +8,10 @@ export const MyPosts = () => {
       <Post message="Hi, how are you" />
       <Post message="It's my friends" />
       <textarea></textarea>
-      <button>Send post</button>
-      <button>Remove post</button>
+      <div>
+        <button>Send post</button>
+        <button>Remove post</button>
+      </div>
     </div>
   );
 };
