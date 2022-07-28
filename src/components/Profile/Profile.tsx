@@ -1,9 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import style from "./Profile.module.css";
 import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
+import { profilePageType } from "../../redax/state";
 
-export const Profile = () => {
+type ProfileType = {
+  profilePage: profilePageType;
+};
+
+export const Profile: FC<ProfileType> = (props) => {
   return (
     <div>
       <img
@@ -12,7 +17,7 @@ export const Profile = () => {
         src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/horizontal-vivid-varitone-ocean-sunset-horizon-blur-abstraction-nickolay-loginov.jpg"
       />
       <ProfileInfo />
-      <MyPosts />
+      <MyPosts posts={props.profilePage.posts} />
     </div>
   );
 };

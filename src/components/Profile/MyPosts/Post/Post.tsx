@@ -3,6 +3,7 @@ import style from "./Post.module.css";
 
 type PostType = {
   message: string;
+  likesCount: number;
 };
 
 export const Post: React.FC<PostType> = (props) => {
@@ -14,6 +15,7 @@ export const Post: React.FC<PostType> = (props) => {
         alt="avatar"
       />
       <p>{props.message}</p>
+      <span>likes: {props.likesCount}</span>
     </div>
   );
 };

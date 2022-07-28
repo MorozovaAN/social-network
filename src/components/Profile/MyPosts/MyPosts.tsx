@@ -1,12 +1,19 @@
-import React from "react";
-import style from "./MyPosts.module.css";
+import React, { FC } from "react";
 import { Post } from "./Post/Post";
+import { postType } from "../../../redax/state";
 
-export const MyPosts = () => {
+type MyPostsType = {
+  posts: Array<postType>;
+};
+
+export const MyPosts: FC<MyPostsType> = (props) => {
+  let postsItem = props.posts.map((p) => (
+    <Post key={p.id} message={p.text} likesCount={p.likesCount} />
+  ));
+
   return (
     <div>
-      <Post message="Hi, how are you" />
-      <Post message="It's my friends" />
+      {postsItem}
       <textarea></textarea>
       <div>
         <button>Send post</button>
