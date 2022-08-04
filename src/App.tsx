@@ -9,6 +9,8 @@ import { stateType } from "./redax/state";
 
 type AppType = {
   state: stateType;
+  addPost: () => void;
+  updateNewPostText: (newText: string) => void;
 };
 
 export const App: FC<AppType> = (props) => {
@@ -19,7 +21,13 @@ export const App: FC<AppType> = (props) => {
       <div className="content-wrapper">
         <Route
           path="/profile"
-          render={() => <Profile profilePage={props.state.profilePage} />}
+          render={() => (
+            <Profile
+              profilePage={props.state.profilePage}
+              addPost={props.addPost}
+              updateNewPostText={props.updateNewPostText}
+            />
+          )}
         />
         <Route
           path="/dialogues"

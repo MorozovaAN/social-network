@@ -6,6 +6,8 @@ import { profilePageType } from "../../redax/state";
 
 type ProfileType = {
   profilePage: profilePageType;
+  addPost: () => void;
+  updateNewPostText: (newText: string) => void;
 };
 
 export const Profile: FC<ProfileType> = (props) => {
@@ -17,7 +19,12 @@ export const Profile: FC<ProfileType> = (props) => {
         src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/horizontal-vivid-varitone-ocean-sunset-horizon-blur-abstraction-nickolay-loginov.jpg"
       />
       <ProfileInfo />
-      <MyPosts posts={props.profilePage.posts} />
+      <MyPosts
+        posts={props.profilePage.posts}
+        newPostText={props.profilePage.newPostText}
+        addPost={props.addPost}
+        updateNewPostText={props.updateNewPostText}
+      />
     </div>
   );
 };

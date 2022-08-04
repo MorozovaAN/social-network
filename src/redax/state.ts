@@ -1,3 +1,12 @@
+import { observe } from "web-vitals/dist/modules/lib/observe";
+
+let rerender = () => {
+  console.log("s");
+};
+export const subscriber = (observer: any) => {
+  rerender = observer;
+};
+
 export type stateType = {
   dialoguesPage: dialoguesPageType;
   profilePage: profilePageType;
@@ -8,6 +17,7 @@ export type dialoguesPageType = {
 };
 export type profilePageType = {
   posts: Array<postType>;
+  newPostText: string;
 };
 export type dialogType = {
   id: number;
@@ -44,5 +54,22 @@ export let state: stateType = {
       { id: 2, text: "It's my friends", likesCount: 15 },
       { id: 3, text: "yoo", likesCount: 5 },
     ],
+    newPostText: "",
   },
+};
+
+export const addPost = () => {
+  const newPost: postType = {
+    id: 5,
+    text: state.profilePage.newPostText,
+    likesCount: 0,
+  };
+  state.profilePage.posts.push(newPost);
+  state.profilePage.newPostText = "";
+  rerender();
+};
+
+export const updateNewPostText = (newText: string) => {
+  state.profilePage.newPostText = newText;
+  rerender();
 };

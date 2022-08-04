@@ -1,13 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import { state } from "./redax/state";
-import { App } from "./App";
 import { BrowserRouter } from "react-router-dom";
+import "./index.css";
+import { App } from "./App";
+import { addPost, state, subscriber, updateNewPostText } from "./redax/state";
 
-ReactDOM.render(
-  <BrowserRouter>
-    <App state={state} />
-  </BrowserRouter>,
-  document.getElementById("root")
-);
+let rerender = () => {
+  ReactDOM.render(
+    <BrowserRouter>
+      <App
+        state={state}
+        addPost={addPost}
+        updateNewPostText={updateNewPostText}
+      />
+    </BrowserRouter>,
+    document.getElementById("root")
+  );
+};
+rerender();
+subscriber(rerender);
