@@ -10,8 +10,9 @@ export const NavBar = () => {
         <li className={style.item}>
           <NavLink
             to="/profile"
-            className={style.link}
-            activeClassName={style.active}
+            className={({ isActive }) =>
+              isActive ? `${style.link} ${style.active}` : style.link
+            }
           >
             Profile
           </NavLink>
@@ -19,8 +20,9 @@ export const NavBar = () => {
         <li className={style.item}>
           <NavLink
             to="/dialogues"
-            className={style.link}
-            activeClassName={style.active}
+            className={({ isActive }) =>
+              isActive ? `${style.link} ${style.active}` : style.link
+            }
           >
             Dialogues
           </NavLink>
@@ -28,8 +30,9 @@ export const NavBar = () => {
         <li className={style.item}>
           <NavLink
             to="src/components/NavBar/Navbar#"
-            className={style.link}
-            activeClassName={style.active}
+            className={({ isActive }) =>
+              isActive ? `${style.link} ${style.active}` : style.link
+            }
           >
             Main content
           </NavLink>

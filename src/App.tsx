@@ -4,7 +4,7 @@ import { NavBar } from "./components/NavBar/Navbar";
 import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Dialogues } from "./components/ Dialogues/Dialogues";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { stateType } from "./redax/state";
 
 type AppType = {
@@ -19,20 +19,22 @@ export const App: FC<AppType> = (props) => {
       <Header />
       <NavBar />
       <div className="content-wrapper">
-        <Route
-          path="/profile"
-          render={() => (
-            <Profile
-              profilePage={props.state.profilePage}
-              addPost={props.addPost}
-              updateNewPostText={props.updateNewPostText}
-            />
-          )}
-        />
-        <Route
-          path="/dialogues"
-          render={() => <Dialogues dialoguesPage={props.state.dialoguesPage} />}
-        />
+        <Routes>
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                profilePage={props.state.profilePage}
+                addPost={props.addPost}
+                updateNewPostText={props.updateNewPostText}
+              />
+            }
+          />
+          <Route
+            path="/dialogues"
+            element={<Dialogues dialoguesPage={props.state.dialoguesPage} />}
+          />
+        </Routes>
       </div>
     </div>
   );
