@@ -3,19 +3,19 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { App } from "./App";
-import { addPost, state, subscriber, updateNewPostText } from "./redax/state";
+import { store } from "./redax/state";
 
 let rerender = () => {
   ReactDOM.render(
     <BrowserRouter>
       <App
-        state={state}
-        addPost={addPost}
-        updateNewPostText={updateNewPostText}
+        state={store.getState()}
+        addPost={store.addPost.bind(store)}
+        updateNewPostText={store.updateNewPostText.bind(store)}
       />
     </BrowserRouter>,
     document.getElementById("root")
   );
 };
 rerender();
-subscriber(rerender);
+store.subscriber(rerender);
