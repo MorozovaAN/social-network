@@ -8,7 +8,7 @@ type DialogType = {
 };
 
 export const Dialog = (props: DialogType) => {
-  let path = `/dialogues/${props.id}`;
+  let path = `dialogues/${props.id}`;
   return (
     <li className={style.dialog}>
       <NavLink className={style.link} to={path}>

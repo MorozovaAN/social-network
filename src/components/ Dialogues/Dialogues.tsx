@@ -1,26 +1,33 @@
-import React, { FC } from "react";
+import React, { FC, ChangeEvent } from "react";
 import style from "./Dialogues.module.css";
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
-import { dialoguesPageType } from "../../redax/state";
+import {
+  ActionsTypes,
+  DialoguesPageType,
+  sendMessageActionCreator,
+  updateNewMessageTextActionCreator,
+} from "../../redax/state";
 
 type DialoguesType = {
-  dialoguesPage: dialoguesPageType;
+  dialoguesPage: DialoguesPageType;
+  dispatch: (action: ActionsTypes) => void;
 };
 
 export const Dialogues: FC<DialoguesType> = (props) => {
-  let dialoguesItem = props.dialoguesPage.dialogues.map((d) => (
+  const dialoguesItem = props.dialoguesPage.dialogues.map((d) => (
     <Dialog key={d.id} name={d.name} id={d.id} />
   ));
 
   let messagesItem = props.dialoguesPage.messages.map((m) => (
     <Message key={m.id} message={m.message} />
   ));
-  const newMessageElement = React.createRef<HTMLTextAreaElement>();
+
   const addMessage = () => {
-    if (newMessageElement.current) {
-      alert(newMessageElement.current?.value);
-    }
+    props.dispatch(sendMessageActionCreator());
+  };
+  const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value));
   };
 
   return (
@@ -30,7 +37,11 @@ export const Dialogues: FC<DialoguesType> = (props) => {
       </div>
       <div className={style.messages}>
         <div>{messagesItem}</div>
-        <textarea ref={newMessageElement}></textarea>
+        <textarea
+          onChange={onChangeMessage}
+          value={props.dialoguesPage.newMessageText}
+          placeholder="Enter your message"
+        ></textarea>
         <button type="button" onClick={addMessage}>
           Send
         </button>

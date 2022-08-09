@@ -5,15 +5,14 @@ import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Dialogues } from "./components/ Dialogues/Dialogues";
 import { Route, Routes } from "react-router-dom";
-import { stateType } from "./redax/state";
+import { ActionsTypes, stateType } from "./redax/state";
 
 type AppType = {
   state: stateType;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
+  dispatch: (action: ActionsTypes) => void;
 };
 
-export const App: FC<AppType> = (props) => {
+export const App: FC<AppType> = ({ state, dispatch }) => {
   return (
     <div className="app-wrapper">
       <Header />
@@ -23,16 +22,17 @@ export const App: FC<AppType> = (props) => {
           <Route
             path="/profile"
             element={
-              <Profile
-                profilePage={props.state.profilePage}
-                addPost={props.addPost}
-                updateNewPostText={props.updateNewPostText}
-              />
+              <Profile profilePage={state.profilePage} dispatch={dispatch} />
             }
           />
           <Route
-            path="/dialogues"
-            element={<Dialogues dialoguesPage={props.state.dialoguesPage} />}
+            path="/dialogues/*"
+            element={
+              <Dialogues
+                dialoguesPage={state.dialoguesPage}
+                dispatch={dispatch}
+              />
+            }
           />
         </Routes>
       </div>

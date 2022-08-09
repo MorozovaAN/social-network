@@ -1,26 +1,31 @@
 import React, { FC } from "react";
 import { Post } from "./Post/Post";
-import { postType } from "../../../redax/state";
+import {
+  ActionsTypes,
+  addPostActionCreator,
+  PostType,
+  updateNewPostTextActionCreator,
+} from "../../../redax/state";
 
 type MyPostsType = {
-  posts: Array<postType>;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
+  posts: Array<PostType>;
   newPostText: string;
+  dispatch: (action: ActionsTypes) => void;
 };
 
-export const MyPosts: FC<MyPostsType> = (props) => {
-  let postsItem = props.posts.map((p) => (
+export const MyPosts: FC<MyPostsType> = ({ posts, newPostText, dispatch }) => {
+  let postsItem = posts.map((p) => (
     <Post key={p.id} message={p.text} likesCount={p.likesCount} />
   ));
   let newPostElement = React.createRef<HTMLTextAreaElement>();
 
   const addPost = () => {
-    props.addPost();
+    dispatch(addPostActionCreator());
   };
   const onPostChange = () => {
     if (newPostElement.current) {
-      props.updateNewPostText(newPostElement.current.value);
+      let text = newPostElement.current.value;
+      dispatch(updateNewPostTextActionCreator(text));
     }
   };
   return (
@@ -28,7 +33,7 @@ export const MyPosts: FC<MyPostsType> = (props) => {
       {postsItem}
       <textarea
         ref={newPostElement}
-        value={props.newPostText}
+        value={newPostText}
         onChange={onPostChange}
       ></textarea>
       <div>

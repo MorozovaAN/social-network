@@ -2,15 +2,14 @@ import React, { FC } from "react";
 import style from "./Profile.module.css";
 import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import { profilePageType } from "../../redax/state";
+import { ActionsTypes, ProfilePageType } from "../../redax/state";
 
 type ProfileType = {
-  profilePage: profilePageType;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
+  profilePage: ProfilePageType;
+  dispatch: (action: ActionsTypes) => void;
 };
 
-export const Profile: FC<ProfileType> = (props) => {
+export const Profile: FC<ProfileType> = ({ profilePage, dispatch }) => {
   return (
     <div>
       <img
@@ -20,10 +19,9 @@ export const Profile: FC<ProfileType> = (props) => {
       />
       <ProfileInfo />
       <MyPosts
-        posts={props.profilePage.posts}
-        newPostText={props.profilePage.newPostText}
-        addPost={props.addPost}
-        updateNewPostText={props.updateNewPostText}
+        posts={profilePage.posts}
+        newPostText={profilePage.newPostText}
+        dispatch={dispatch}
       />
     </div>
   );

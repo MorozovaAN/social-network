@@ -1,36 +1,48 @@
 export type stateType = {
-  dialoguesPage: dialoguesPageType;
-  profilePage: profilePageType;
+  dialoguesPage: DialoguesPageType;
+  profilePage: ProfilePageType;
 };
-export type dialoguesPageType = {
-  dialogues: Array<dialogType>;
-  messages: Array<messageType>;
+export type DialoguesPageType = {
+  dialogues: Array<DialogType>;
+  messages: Array<MessageType>;
+  newMessageText: string;
 };
-export type profilePageType = {
-  posts: Array<postType>;
+export type ProfilePageType = {
+  posts: Array<PostType>;
   newPostText: string;
 };
-export type dialogType = {
+export type DialogType = {
   id: number;
   name: string;
 };
-export type messageType = {
+export type MessageType = {
   id: number;
   message: string;
 };
-export type postType = {
+export type PostType = {
   id: number;
   text: string;
   likesCount: number;
 };
-type storeType = {
+
+export type ActionsTypes =
+  | ReturnType<typeof addPostActionCreator>
+  | ReturnType<typeof updateNewPostTextActionCreator>
+  | ReturnType<typeof updateNewMessageTextActionCreator>
+  | ReturnType<typeof sendMessageActionCreator>;
+
+export type storeType = {
   _state: stateType;
   getState: () => stateType;
   _callSubscriber: () => void;
   subscriber: (observer: () => void) => void;
-  addPost: () => void;
-  updateNewPostText: (newText: string) => void;
+  dispatch: (action: ActionsTypes) => void;
 };
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+const SEND_MESSAGE = "SEND-MESSAGE";
 
 export let store: storeType = {
   _state: {
@@ -47,6 +59,7 @@ export let store: storeType = {
         { id: 2, message: "What's app?" },
         { id: 3, message: "Yo" },
       ],
+      newMessageText: "",
     },
     profilePage: {
       posts: [
@@ -66,18 +79,51 @@ export let store: storeType = {
   subscriber(observer: () => void) {
     this._callSubscriber = observer;
   },
-  addPost() {
-    const newPost: postType = {
-      id: 5,
-      text: this._state.profilePage.newPostText,
-      likesCount: 0,
-    };
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = "";
-    this._callSubscriber();
-  },
-  updateNewPostText(newText: string) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber();
+  dispatch(action) {
+    if (action.type === ADD_POST) {
+      const newPost: PostType = {
+        id: 5,
+        text: this._state.profilePage.newPostText,
+        likesCount: 0,
+      };
+      this._state.profilePage.posts.push(newPost);
+      this._state.profilePage.newPostText = "";
+      this._callSubscriber();
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
+      this._state.profilePage.newPostText = action.newText;
+      this._callSubscriber();
+    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+      this._state.dialoguesPage.newMessageText = action.newText;
+      this._callSubscriber();
+    } else if (action.type === SEND_MESSAGE) {
+      this._state.dialoguesPage.messages.push({
+        id: 4,
+        message: this._state.dialoguesPage.newMessageText,
+      });
+      this._state.dialoguesPage.newMessageText = "";
+      this._callSubscriber();
+    }
   },
 };
+
+export const addPostActionCreator = () =>
+  ({
+    type: ADD_POST,
+  } as const);
+
+export const updateNewPostTextActionCreator = (text: string) =>
+  ({
+    type: UPDATE_NEW_POST_TEXT,
+    newText: text,
+  } as const);
+
+export const updateNewMessageTextActionCreator = (text: string) =>
+  ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    newText: text,
+  } as const);
+
+export const sendMessageActionCreator = () =>
+  ({
+    type: SEND_MESSAGE,
+  } as const);
