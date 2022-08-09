@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import { Post } from "./Post/Post";
+import { ActionsTypes, PostType } from "../../../redax/state";
 import {
-  ActionsTypes,
   addPostActionCreator,
-  PostType,
   updateNewPostTextActionCreator,
-} from "../../../redax/state";
+} from "../../../redax/profile-reducer";
 
 type MyPostsType = {
   posts: Array<PostType>;
