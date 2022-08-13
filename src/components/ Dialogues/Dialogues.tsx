@@ -10,23 +10,28 @@ import {
 
 type DialoguesType = {
   dialoguesPage: DialoguesPageType;
-  dispatch: (action: ActionsTypes) => void;
+  updateNewMessageText: (newMessage: string) => void;
+  sendMessage: () => void;
 };
 
-export const Dialogues: FC<DialoguesType> = (props) => {
-  const dialoguesItem = props.dialoguesPage.dialogues.map((d) => (
+export const Dialogues: FC<DialoguesType> = ({
+  dialoguesPage,
+  updateNewMessageText,
+  sendMessage,
+}) => {
+  const dialoguesItem = dialoguesPage.dialogues.map((d) => (
     <Dialog key={d.id} name={d.name} id={d.id} />
   ));
 
-  let messagesItem = props.dialoguesPage.messages.map((m) => (
+  let messagesItem = dialoguesPage.messages.map((m) => (
     <Message key={m.id} message={m.message} />
   ));
 
-  const addMessage = () => {
-    props.dispatch(sendMessageActionCreator());
+  const onSendMessageClick = () => {
+    sendMessage();
   };
   const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(updateNewMessageTextActionCreator(e.currentTarget.value));
+    updateNewMessageText(e.currentTarget.value);
   };
 
   return (
@@ -38,10 +43,10 @@ export const Dialogues: FC<DialoguesType> = (props) => {
         <div>{messagesItem}</div>
         <textarea
           onChange={onChangeMessage}
-          value={props.dialoguesPage.newMessageText}
+          value={dialoguesPage.newMessageText}
           placeholder="Enter your message"
         ></textarea>
-        <button type="button" onClick={addMessage}>
+        <button type="button" onClick={onSendMessageClick}>
           Send
         </button>
       </div>

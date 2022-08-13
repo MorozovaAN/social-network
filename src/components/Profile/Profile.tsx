@@ -1,28 +1,20 @@
 import React, { FC } from "react";
 import style from "./Profile.module.css";
-import { MyPosts } from "./MyPosts/MyPosts";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
-import { ActionsTypes, ProfilePageType } from "../../redux/state";
+import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 
-type ProfileType = {
-  profilePage: ProfilePageType;
-  dispatch: (action: ActionsTypes) => void;
-};
+type ProfileType = {};
 
-export const Profile: FC<ProfileType> = ({ profilePage, dispatch }) => {
+export const Profile: FC<ProfileType> = () => {
   return (
     <div>
       <img
-        alt="bg-image"
+        alt=""
         className={style.img}
         src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/horizontal-vivid-varitone-ocean-sunset-horizon-blur-abstraction-nickolay-loginov.jpg"
       />
       <ProfileInfo />
-      <MyPosts
-        posts={profilePage.posts}
-        newPostText={profilePage.newPostText}
-        dispatch={dispatch}
-      />
+      <MyPostsContainer />
     </div>
   );
 };

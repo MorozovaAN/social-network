@@ -3,37 +3,20 @@ import "./App.css";
 import { NavBar } from "./components/NavBar/Navbar";
 import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
-import { Dialogues } from "./components/ Dialogues/Dialogues";
 import { Route, Routes } from "react-router-dom";
-import { ActionsTypes, stateType } from "./redux/state";
+import { DialoguesContainer } from "./components/ Dialogues/DialoguesContainer";
 
-type AppType = {
-  state: stateType;
-  dispatch: (action: ActionsTypes) => void;
-};
+type AppType = {};
 
-export const App: FC<AppType> = ({ state, dispatch }) => {
+export const App: FC<AppType> = () => {
   return (
     <div className="app-wrapper">
       <Header />
       <NavBar />
       <div className="content-wrapper">
         <Routes>
-          <Route
-            path="/profile"
-            element={
-              <Profile profilePage={state.profilePage} dispatch={dispatch} />
-            }
-          />
-          <Route
-            path="/dialogues/*"
-            element={
-              <Dialogues
-                dialoguesPage={state.dialoguesPage}
-                dispatch={dispatch}
-              />
-            }
-          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialogues/*" element={<DialoguesContainer />} />
         </Routes>
       </div>
     </div>
