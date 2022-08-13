@@ -5,7 +5,7 @@ import { Profile } from "./components/Profile/Profile";
 import { Header } from "./components/Header/Header";
 import { Dialogues } from "./components/ Dialogues/Dialogues";
 import { Route, Routes } from "react-router-dom";
-import { ActionsTypes, stateType } from "./redax/state";
+import { ActionsTypes, stateType } from "./redux/state";
 
 type AppType = {
   state: stateType;

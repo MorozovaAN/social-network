@@ -2,11 +2,11 @@ import React, { FC, ChangeEvent } from "react";
 import style from "./Dialogues.module.css";
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
-import { ActionsTypes, DialoguesPageType } from "../../redax/state";
+import { ActionsTypes, DialoguesPageType } from "../../redux/state";
 import {
   sendMessageActionCreator,
   updateNewMessageTextActionCreator,
-} from "../../redax/dialodues-reducer";
+} from "../../redux/dialodues-reducer";
 
 type DialoguesType = {
   dialoguesPage: DialoguesPageType;

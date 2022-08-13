@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Post } from "./Post/Post";
-import { ActionsTypes, PostType } from "../../../redax/state";
+import { ActionsTypes, PostType } from "../../../redux/state";
 import {
   addPostActionCreator,
   updateNewPostTextActionCreator,
-} from "../../../redax/profile-reducer";
+} from "../../../redux/profile-reducer";
 
 type MyPostsType = {
   posts: Array<PostType>;

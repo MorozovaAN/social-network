@@ -13,7 +13,26 @@ export const sendMessageActionCreator = () =>
     type: SEND_MESSAGE,
   } as const);
 
-const dialoguesReducer = (state: DialoguesPageType, action: ActionsTypes) => {
+let initialState = {
+  dialogues: [
+    { id: 1, name: "Sveta" },
+    { id: 2, name: "Ivan" },
+    { id: 3, name: "Anna" },
+    { id: 4, name: "Max" },
+    { id: 5, name: "Lena" },
+  ],
+  messages: [
+    { id: 1, message: "Hi!" },
+    { id: 2, message: "What's app?" },
+    { id: 3, message: "Yo" },
+  ],
+  newMessageText: "",
+};
+
+const dialoguesReducer = (
+  state: DialoguesPageType = initialState,
+  action: ActionsTypes
+) => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_TEXT: {
       state.newMessageText = action.newText;
