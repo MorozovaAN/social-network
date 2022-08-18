@@ -7,40 +7,41 @@ import dialoguesReducer, {
   updateNewMessageTextActionCreator,
 } from "./dialodues-reducer";
 
-export type stateType = {
+type stateType = {
   dialoguesPage: DialoguesPageType;
   profilePage: ProfilePageType;
 };
-export type DialoguesPageType = {
+type DialoguesPageType = {
   dialogues: Array<DialogType>;
   messages: Array<MessageType>;
   newMessageText: string;
 };
-export type ProfilePageType = {
+
+type ProfilePageType = {
   posts: Array<PostType>;
   newPostText: string;
 };
-export type DialogType = {
+type DialogType = {
   id: number;
   name: string;
 };
-export type MessageType = {
+type MessageType = {
   id: number;
   message: string;
 };
-export type PostType = {
+type PostType = {
   id: number;
   text: string;
   likesCount: number;
 };
 
-export type ActionsTypes =
+type ActionsTypes =
   | ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
   | ReturnType<typeof updateNewMessageTextActionCreator>
   | ReturnType<typeof sendMessageActionCreator>;
 
-export type storeType = {
+type storeType = {
   getState: () => stateType;
   subscribe: (observer: () => void) => void;
   dispatch: (action: ActionsTypes) => void;

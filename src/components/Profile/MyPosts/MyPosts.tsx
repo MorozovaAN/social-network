@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Post } from "./Post/Post";
-import { PostType } from "../../../redux/state";
+import { PostType } from "../../../redux/profile-reducer";
 
 type MyPostsType = {
   posts: Array<PostType>;

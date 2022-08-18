@@ -1,5 +1,3 @@
-import { ActionsTypes, DialoguesPageType } from "./state";
-
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const SEND_MESSAGE = "SEND-MESSAGE";
 
@@ -13,7 +11,25 @@ export const sendMessageActionCreator = () =>
     type: SEND_MESSAGE,
   } as const);
 
-let initialState = {
+type ActionsTypes =
+  | ReturnType<typeof sendMessageActionCreator>
+  | ReturnType<typeof updateNewMessageTextActionCreator>;
+
+export type DialoguesPageType = {
+  dialogues: DialogType[];
+  messages: MessageType[];
+  newMessageText: string;
+};
+type DialogType = {
+  id: number;
+  name: string;
+};
+type MessageType = {
+  id: number;
+  message: string;
+};
+
+const initialState: DialoguesPageType = {
   dialogues: [
     { id: 1, name: "Sveta" },
     { id: 2, name: "Ivan" },
@@ -32,21 +48,23 @@ let initialState = {
 const dialoguesReducer = (
   state: DialoguesPageType = initialState,
   action: ActionsTypes
-) => {
+): DialoguesPageType => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_TEXT: {
-      state.newMessageText = action.newText;
-      return state;
-    }
+    case UPDATE_NEW_MESSAGE_TEXT:
+      return { ...state, newMessageText: action.newText };
 
-    case SEND_MESSAGE: {
-      state.messages.push({
-        id: 4,
-        message: state.newMessageText,
-      });
-      state.newMessageText = "";
-      return state;
-    }
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          {
+            id: 4,
+            message: state.newMessageText,
+          },
+        ],
+        newMessageText: "",
+      };
 
     default:
       return state;
