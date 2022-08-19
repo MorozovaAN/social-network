@@ -28,12 +28,12 @@ export const NavBar = () => {
         </li>
         <li className={style.item}>
           <NavLink
-            to="src/components/NavBar/Navbar#"
+            to="/users"
             className={({ isActive }) =>
               isActive ? `${style.link} ${style.active}` : style.link
             }
           >
-            Main content
+            Users
           </NavLink>
         </li>
       </ul>
