@@ -14,36 +14,7 @@ type LocationType = {
 };
 
 const initialState: UsersPageType = {
-  users: [
-    {
-      id: 1,
-      fullName: "Dmitry",
-      followed: false,
-      status: "I am a boss",
-      location: { city: "Minsk", country: "Belarus" },
-    },
-    {
-      id: 2,
-      fullName: "Anna",
-      followed: true,
-      status: "hi!",
-      location: { city: "Moscow", country: "Russian" },
-    },
-    {
-      id: 3,
-      fullName: "Sveta",
-      followed: true,
-      status: "hello",
-      location: { city: "kiev", country: "Ukraine" },
-    },
-    {
-      id: 4,
-      fullName: "Bob",
-      followed: false,
-      status: "",
-      location: { city: "Boston", country: "USA" },
-    },
-  ],
+  users: [],
 };
 
 type ActionsTypes =
