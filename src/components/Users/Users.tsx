@@ -1,25 +1,51 @@
-import React, { FC } from "react";
-import { UserType } from "../../redux/users-reducer";
+import React from "react";
 import s from "./Users.module.css";
 import axios from "axios";
-
-type UsersType = {
-  users: any;
-  setUsers: (users: UserType[]) => void;
-  follow: (userID: number) => void;
-};
+import { UsersType } from "./UsersContainer";
 
 export class Users extends React.Component<UsersType> {
   componentDidMount() {
+    axios.get(
+      `https://social-network.samuraijs.com/api/1.0/users?page${this.props.currentPage}&count${this.props.pageSize}`
+    );
+    // .then((response) => {
+    //   this.props.setUsers(response.data.items);
+    //   this.props.setTotalUsersCount(response.data.totalCount);
+    // });
+  }
+  onPageChanged = (pageNumber: number) => {
+    this.props.setCurrentPage(pageNumber);
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page${pageNumber}&count${this.props.pageSize}`
+      )
       .then((response) => {
         this.props.setUsers(response.data.items);
       });
-  }
+  };
   render() {
+    let pagesCount = Math.ceil(
+      this.props.totalUsersCount / this.props.pageSize
+    );
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i);
+    }
+
     return (
       <div>
+        <div>
+          {pages.map((p) => (
+            <button
+              onClick={() => {
+                this.onPageChanged(p);
+              }}
+              className={p === this.props.currentPage ? s.selectedPage : ""}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
         {this.props.users.map((u: any) => (
           <div className={s.container} key={u.id}>
             <div>

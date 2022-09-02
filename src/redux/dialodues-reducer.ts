@@ -1,16 +1,3 @@
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE";
-
-export const updateNewMessageTextActionCreator = (text: string) =>
-  ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text,
-  } as const);
-export const sendMessageActionCreator = () =>
-  ({
-    type: SEND_MESSAGE,
-  } as const);
-
 type ActionsTypes =
   | ReturnType<typeof sendMessageActionCreator>
   | ReturnType<typeof updateNewMessageTextActionCreator>;
@@ -50,10 +37,10 @@ const dialoguesReducer = (
   action: ActionsTypes
 ): DialoguesPageType => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_TEXT:
+    case "UPDATE-NEW-MESSAGE-TEXT":
       return { ...state, newMessageText: action.newText };
 
-    case SEND_MESSAGE:
+    case "SEND-MESSAGE":
       return {
         ...state,
         messages: [
@@ -70,4 +57,17 @@ const dialoguesReducer = (
       return state;
   }
 };
+
+export const updateNewMessageTextActionCreator = (text: string) => {
+  return {
+    type: "UPDATE-NEW-MESSAGE-TEXT",
+    newText: text,
+  } as const;
+};
+export const sendMessageActionCreator = () => {
+  return {
+    type: "SEND-MESSAGE",
+  } as const;
+};
+
 export default dialoguesReducer;

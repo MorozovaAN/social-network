@@ -25,3 +25,6 @@
 p {
   margin: 0;
 }
+.selectedPage {
+  font-weight: 800;
+}
