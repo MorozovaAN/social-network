@@ -30,7 +30,7 @@ type ActionsTypes =
   | ReturnType<typeof followAC>
   | ReturnType<typeof unfollowAC>
   | ReturnType<typeof setUsersAC>
-  | ReturnType<typeof setPageAC>
+  | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setTotalUsersCountAC>
   | ReturnType<typeof setIsFetchingAC>;
 
@@ -40,7 +40,7 @@ export const unfollowAC = (userID: number) =>
   ({ type: "UNFOLLOW", userID } as const);
 export const setUsersAC = (users: UserType[]) =>
   ({ type: "SET-USERS", users } as const);
-export const setPageAC = (pageNumber: number) =>
+export const setCurrentPageAC = (pageNumber: number) =>
   ({ type: "SET-CURRENT-PAGE", pageNumber } as const);
 export const setTotalUsersCountAC = (count: number) =>
   ({ type: "SET-USERS-TOTAL-COUNT", count } as const);
