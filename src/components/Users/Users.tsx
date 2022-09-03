@@ -5,19 +5,21 @@ import { UsersType } from "./UsersContainer";
 
 export class Users extends React.Component<UsersType> {
   componentDidMount() {
-    axios.get(
-      `https://social-network.samuraijs.com/api/1.0/users?page${this.props.currentPage}&count${this.props.pageSize}`
-    );
-    // .then((response) => {
-    //   this.props.setUsers(response.data.items);
-    //   this.props.setTotalUsersCount(response.data.totalCount);
-    // });
+    axios
+      .get(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+      )
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+        //this.props.setTotalUsersCount(response.data.totalCount);
+        //всего 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
+      });
   }
   onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page${pageNumber}&count${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
