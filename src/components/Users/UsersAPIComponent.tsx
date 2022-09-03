@@ -13,7 +13,6 @@ export class UsersAPIComponent extends React.Component<UsersType> {
       .then((response) => {
         this.props.setIsFetching(false);
         this.props.setUsers(response.data.items);
-
         //this.props.setTotalUsersCount(response.data.totalCount);
         //всего 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
       });

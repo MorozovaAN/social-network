@@ -1,21 +1,23 @@
+import React, { FC } from "react";
 import style from "./ProfileInfo.module.css";
-import React from "react";
-
-export const ProfileInfo = () => {
-  return (
-    <div className={style.info}>
-      <img
-        width="100"
-        height="100"
-        src="https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg"
-        alt="avatar"
-      />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam
-        blanditiis cupiditate fuga illo iure molestiae nulla, odit optio,
-        perferendis qui sint soluta veritatis, voluptatum? Iusto modi natus
-        nesciunt numquam sapiente!
-      </p>
-    </div>
-  );
+type ProfileInfoType = {
+  profile: any;
+};
+export const ProfileInfo: FC<ProfileInfoType> = (props) => {
+  if (!props.profile) {
+    return <span>preloader</span>;
+  } else {
+    let url = props.profile.photos.large
+      ? props.profile.photos.large
+      : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg";
+    return (
+      <div className={style.info}>
+        <img width="100" height="100" src={url} alt="avatar" />
+        <div>
+          <p>{props.profile.fullName}</p>
+          <p>{props.profile.aboutMe}</p>
+        </div>
+      </div>
+    );
+  }
 };

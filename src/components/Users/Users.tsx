@@ -1,6 +1,7 @@
 import s from "./Users.module.css";
 import React, { FC } from "react";
 import { UserType } from "../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
 
 type UsersType = {
   totalUsersCount: number;
@@ -27,8 +28,9 @@ export const Users: FC<UsersType> = ({
   return (
     <div>
       <div>
-        {pages.map((p) => (
+        {pages.map((p, index) => (
           <button
+            key={index}
             onClick={() => {
               onPageChanged(p);
             }}
@@ -41,15 +43,17 @@ export const Users: FC<UsersType> = ({
       {users.map((u: any) => (
         <div className={s.container} key={u.id}>
           <div>
-            <img
-              className={s.avatar}
-              src={
-                u.photos.small
-                  ? u.photos.small
-                  : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg"
-              }
-              alt="avatar"
-            />
+            <NavLink to={`/profile/` + u.id}>
+              <img
+                className={s.avatar}
+                src={
+                  u.photos.small
+                    ? u.photos.small
+                    : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg"
+                }
+                alt="avatar"
+              />
+            </NavLink>
             <button
               onClick={() => {
                 follow(u.id);

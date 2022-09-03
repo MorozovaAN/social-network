@@ -3,9 +3,11 @@ import style from "./Profile.module.css";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 
-type ProfileType = {};
+type ProfileType = {
+  profile: any;
+};
 
-export const Profile: FC<ProfileType> = () => {
+export const Profile: FC<ProfileType> = ({ profile }) => {
   return (
     <div>
       <img
@@ -13,7 +15,7 @@ export const Profile: FC<ProfileType> = () => {
         className={style.img}
         src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/horizontal-vivid-varitone-ocean-sunset-horizon-blur-abstraction-nickolay-loginov.jpg"
       />
-      <ProfileInfo />
+      <ProfileInfo profile={profile} />
       <MyPostsContainer />
     </div>
   );
