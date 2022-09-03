@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { UsersAPIComponent } from "./UsersAPIComponent";
 import {
   followAC,
+  setIsFetchingAC,
   setPageAC,
   setTotalUsersCountAC,
   setUsersAC,
@@ -17,6 +18,7 @@ type MapStateToPropsType = {
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
+  isFetching: boolean;
 };
 type MapDispatchToPropsType = {
   follow: (userID: number) => void;
@@ -24,6 +26,7 @@ type MapDispatchToPropsType = {
   setUsers: (users: UserType[]) => void;
   setCurrentPage: (pageNumber: number) => void;
   setTotalUsersCount: (count: number) => void;
+  setIsFetching: (isFetching: boolean) => void;
 };
 export type UsersType = MapStateToPropsType & MapDispatchToPropsType;
 
@@ -33,6 +36,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
@@ -51,6 +55,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     },
     setTotalUsersCount: (count: number) => {
       dispatch(setTotalUsersCountAC(count));
+    },
+    setIsFetching: (isFetching: boolean) => {
+      dispatch(setIsFetchingAC(isFetching));
     },
   };
 };
