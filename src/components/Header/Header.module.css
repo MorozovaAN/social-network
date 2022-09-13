@@ -1,9 +1,13 @@
 .header {
   display: flex;
-  column-gap: 30px;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 20px;
   background: aquamarine;
   grid-column: 1/3;
   box-sizing: border-box;
+}
+.login {
+  color: white;
 }

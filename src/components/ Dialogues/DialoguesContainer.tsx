@@ -4,9 +4,9 @@ import {
   DialoguesPageType,
   sendMessageActionCreator,
   updateNewMessageTextActionCreator,
-} from "../../redux/dialodues-reducer";
+} from "../../redux/reducers/dialodues-reducer";
 import { connect } from "react-redux";
-import { AppStateType } from "../../redux/redux-store";
+import { AppStateType } from "../../redux/store";
 import { Dispatch } from "redux";
 
 type mapStateToPropsType = {

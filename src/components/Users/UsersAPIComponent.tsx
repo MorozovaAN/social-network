@@ -1,33 +1,28 @@
 import React from "react";
-import axios from "axios";
 import { UsersType } from "./UsersContainer";
 import { Users } from "./Users";
+import { userAPI } from "../../api/api";
 
 export class UsersAPIComponent extends React.Component<UsersType> {
   componentDidMount() {
     this.props.setIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-      )
+    userAPI
+      .getUsers(this.props.currentPage, this.props.pageSize)
       .then((response) => {
         this.props.setIsFetching(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(response.items);
         //this.props.setTotalUsersCount(response.data.totalCount);
-        //всего 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
+        //всего там 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
       });
   }
   onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.setIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
-      )
-      .then((response) => {
-        this.props.setIsFetching(false);
-        this.props.setUsers(response.data.items);
-      });
+
+    userAPI.getUsers(pageNumber, this.props.pageSize).then((response) => {
+      this.props.setIsFetching(false);
+      this.props.setUsers(response.items);
+    });
   };
   render() {
     return (
@@ -42,6 +37,9 @@ export class UsersAPIComponent extends React.Component<UsersType> {
             onPageChanged={this.onPageChanged}
             users={this.props.users}
             follow={this.props.follow}
+            unfollow={this.props.follow}
+            setFollowingInProgress={this.props.setFollowingInProgress}
+            followingInProgress={this.props.followingInProgress}
           />
         )}
       </>

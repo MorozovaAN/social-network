@@ -1,7 +1,8 @@
 import s from "./Users.module.css";
 import React, { FC } from "react";
-import { UserType } from "../../redux/users-reducer";
+import { UserType } from "../../redux/reducers/users-reducer";
 import { NavLink } from "react-router-dom";
+import { userAPI } from "../../api/api";
 
 type UsersType = {
   totalUsersCount: number;
@@ -10,6 +11,12 @@ type UsersType = {
   onPageChanged: (pageNumber: number) => void;
   users: UserType[];
   follow: (userID: number) => void;
+  unfollow: (userID: number) => void;
+  setFollowingInProgress: (
+    followingInProgress: boolean,
+    userId: number
+  ) => void;
+  followingInProgress: any[];
 };
 
 export const Users: FC<UsersType> = ({
@@ -19,12 +26,16 @@ export const Users: FC<UsersType> = ({
   onPageChanged,
   users,
   follow,
+  unfollow,
+  setFollowingInProgress,
+  followingInProgress,
 }) => {
   let pagesCount = Math.ceil(totalUsersCount / pageSize);
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
+
   return (
     <div>
       <div>
@@ -54,13 +65,38 @@ export const Users: FC<UsersType> = ({
                 alt="avatar"
               />
             </NavLink>
-            <button
-              onClick={() => {
-                follow(u.id);
-              }}
-            >
-              {u.followed ? "unfollow" : "follow"}
-            </button>
+            {u.followed ? (
+              <button
+                disabled={followingInProgress.some((id) => id === u.id)}
+                onClick={() => {
+                  setFollowingInProgress(true, u.id);
+
+                  userAPI.unfollowUser(u.id).then((response) => {
+                    if (response.data.resultCode === 0) {
+                      unfollow(u.id);
+                    }
+                    setFollowingInProgress(false, u.id);
+                  });
+                }}
+              >
+                unfollow
+              </button>
+            ) : (
+              <button
+                disabled={followingInProgress.some((id) => id === u.id)}
+                onClick={() => {
+                  setFollowingInProgress(true, u.id);
+                  userAPI.followUser(u.id).then((response) => {
+                    if (response.data.resultCode === 0) {
+                      follow(u.id);
+                    }
+                    setFollowingInProgress(false, u.id);
+                  });
+                }}
+              >
+                follow
+              </button>
+            )}
           </div>
 
           <div className={s.infoContainer}>
