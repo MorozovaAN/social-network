@@ -1,3 +1,5 @@
+import { userAPI } from "../../api/api";
+
 export type UsersPageType = {
   users: UserType[];
   pageSize: number;
@@ -29,27 +31,27 @@ const initialState: UsersPageType = {
 };
 
 type ActionsTypes =
-  | ReturnType<typeof followAC>
-  | ReturnType<typeof unfollowAC>
-  | ReturnType<typeof setUsersAC>
+  | ReturnType<typeof followSuccess>
+  | ReturnType<typeof unfollowSuccess>
+  | ReturnType<typeof setUsers>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setTotalUsersCountAC>
-  | ReturnType<typeof setIsFetchingAC>
-  | ReturnType<typeof setFollowingInProgressAC>;
+  | ReturnType<typeof setIsFetching>
+  | ReturnType<typeof setFollowingInProgress>;
 
-export const followAC = (userID: number) =>
+export const followSuccess = (userID: number) =>
   ({ type: "FOLLOW", userID } as const);
-export const unfollowAC = (userID: number) =>
+export const unfollowSuccess = (userID: number) =>
   ({ type: "UNFOLLOW", userID } as const);
-export const setUsersAC = (users: UserType[]) =>
+export const setUsers = (users: UserType[]) =>
   ({ type: "SET-USERS", users } as const);
 export const setCurrentPageAC = (pageNumber: number) =>
   ({ type: "SET-CURRENT-PAGE", pageNumber } as const);
 export const setTotalUsersCountAC = (count: number) =>
   ({ type: "SET-USERS-TOTAL-COUNT", count } as const);
-export const setIsFetchingAC = (isFetching: boolean) =>
+export const setIsFetching = (isFetching: boolean) =>
   ({ type: "SET-IS-FETCHING", isFetching } as const);
-export const setFollowingInProgressAC = (
+export const setFollowingInProgress = (
   followingInProgress: boolean,
   userId: number
 ) =>
@@ -89,10 +91,49 @@ const usersReducer = (
         ...state,
         followingInProgress: action.followingInProgress
           ? [...state.followingInProgress, action.userId]
-          : state.followingInProgress.filter((id) => id != action.userId),
+          : state.followingInProgress.filter((id) => id !== action.userId),
       };
     default:
       return state;
   }
 };
+
+export const getUsers = (currentPage: any, pageSize: any) => {
+  return (dispatch: any) => {
+    dispatch(setIsFetching(true));
+    userAPI.getUsers(currentPage, pageSize).then((data) => {
+      dispatch(setIsFetching(false));
+      dispatch(setUsers(data.items));
+      //this.props.setTotalUsersCount(response.data.totalCount);
+      //всего там 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
+    });
+  };
+};
+
+export const follow = (userId: number) => {
+  return (dispatch: any) => {
+    dispatch(setFollowingInProgress(true, userId));
+
+    userAPI.followUser(userId).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+      }
+      dispatch(setFollowingInProgress(false, userId));
+    });
+  };
+};
+
+export const unfollow = (userId: number) => {
+  return (dispatch: any) => {
+    dispatch(setFollowingInProgress(true, userId));
+
+    userAPI.unfollowUser(userId).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId));
+      }
+      dispatch(setFollowingInProgress(false, userId));
+    });
+  };
+};
+
 export default usersReducer;

@@ -1,3 +1,5 @@
+import { userAPI } from "../../api/api";
+
 export type PostType = {
   id: number;
   text: string;
@@ -27,6 +29,12 @@ export const setUserProfile = (profile: any) =>
     type: "SET-USER-PROFILE",
     profile,
   } as const);
+
+export const getUserProfile = (userID: string) => (dispatch: any) => {
+  userAPI.getProfile(userID).then((response) => {
+    dispatch(setUserProfile(response.data));
+  });
+};
 
 let initialState: ProfilePageType = {
   posts: [

@@ -11,6 +11,7 @@ import { Dispatch } from "redux";
 
 type mapStateToPropsType = {
   dialoguesPage: DialoguesPageType;
+  isAuth: boolean;
 };
 type mapDispatchToPropsType = {
   updateNewMessageText: (newMessage: string) => void;
@@ -20,6 +21,7 @@ type mapDispatchToPropsType = {
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
   return {
     dialoguesPage: state.dialoguesPage,
+    isAuth: state.auth.isAuth,
   };
 };
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {

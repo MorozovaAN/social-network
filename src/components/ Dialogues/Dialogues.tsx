@@ -1,25 +1,35 @@
-import React, { FC, ChangeEvent } from "react";
+import React, { FC, ChangeEvent, useEffect } from "react";
 import style from "./Dialogues.module.css";
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
 import { DialoguesPageType } from "../../redux/reducers/dialodues-reducer";
+import { useNavigate } from "react-router-dom";
 
 type DialoguesType = {
   dialoguesPage: DialoguesPageType;
   updateNewMessageText: (newMessage: string) => void;
   sendMessage: () => void;
+  isAuth: boolean;
 };
 
 export const Dialogues: FC<DialoguesType> = ({
   dialoguesPage,
   updateNewMessageText,
   sendMessage,
+  isAuth,
 }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAuth) {
+      return navigate("/login");
+    }
+  }, [isAuth]);
+
   const dialoguesItem = dialoguesPage.dialogues.map((d) => (
     <Dialog key={d.id} name={d.name} id={d.id} />
   ));
 
-  let messagesItem = dialoguesPage.messages.map((m) => (
+  const messagesItem = dialoguesPage.messages.map((m) => (
     <Message key={m.id} message={m.message} />
   ));
 

@@ -1,9 +1,8 @@
 import React from "react";
 import { Header } from "./Header";
-import axios from "axios";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/store";
-import { setAuthUserData } from "../../redux/reducers/auth-reducer";
+import { getAuthUserData } from "../../redux/reducers/auth-reducer";
 
 type PropsType = {
   setAuthUserData: (
@@ -17,16 +16,7 @@ type PropsType = {
 
 class HeaderContainer extends React.Component<any, PropsType> {
   componentDidMount() {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          let { id, email, login } = response.data.data;
-          this.props.setAuthUserData(id, email, login);
-        }
-      });
+    this.props.getAuthUserData();
   }
 
   render() {
@@ -38,11 +28,7 @@ type MapStateToPropsType = {
   login: string | null;
 };
 type MapDispatchToPropsType = {
-  setAuthUserData: (
-    id: number | null,
-    email: string | null,
-    login: string | null
-  ) => void;
+  getAuthUserData: any;
 };
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -58,5 +44,5 @@ export default connect<
   {},
   AppStateType
 >(mapStateToProps, {
-  setAuthUserData,
+  getAuthUserData,
 })(HeaderContainer);

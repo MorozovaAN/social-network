@@ -2,14 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { UsersAPIComponent } from "./UsersAPIComponent";
 import {
-  followAC,
-  setIsFetchingAC,
   setCurrentPageAC,
   setTotalUsersCountAC,
-  setUsersAC,
-  unfollowAC,
   UserType,
-  setFollowingInProgressAC,
+  setFollowingInProgress,
+  getUsers,
+  follow,
+  unfollow,
 } from "../../redux/reducers/users-reducer";
 import { AppStateType } from "../../redux/store";
 
@@ -24,14 +23,13 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
   follow: (userID: number) => void;
   unfollow: (userID: number) => void;
-  setUsers: (users: UserType[]) => void;
   setCurrentPage: (pageNumber: number) => void;
   setTotalUsersCount: (count: number) => void;
-  setIsFetching: (isFetching: boolean) => void;
   setFollowingInProgress: (
     followingInProgress: boolean,
     userId: number
   ) => void;
+  getUsers: any;
 };
 export type UsersType = MapStateToPropsType & MapDispatchToPropsType;
 
@@ -52,11 +50,10 @@ export const UsersContainer = connect<
   {},
   AppStateType
 >(mapStateToProps, {
-  follow: followAC,
-  unfollow: unfollowAC,
-  setUsers: setUsersAC,
+  follow,
+  unfollow,
   setCurrentPage: setCurrentPageAC,
   setTotalUsersCount: setTotalUsersCountAC,
-  setIsFetching: setIsFetchingAC,
-  setFollowingInProgress: setFollowingInProgressAC,
+  setFollowingInProgress: setFollowingInProgress,
+  getUsers,
 })(UsersAPIComponent);

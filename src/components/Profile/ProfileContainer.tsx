@@ -1,40 +1,44 @@
 import React, { useEffect } from "react";
 import { Profile } from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/store";
 import {
+  getUserProfile,
   ProfilePageType,
-  setUserProfile,
 } from "../../redux/reducers/profile-reducer";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProfileContainer = (props: any) => {
-  const params = useParams<"*">();
-  let profileId = params["*"];
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!props.isAuth) {
+      return navigate("/login");
+    }
+  }, [props.isAuth]);
 
-  if (!profileId) {
-    profileId = "2";
+  const params = useParams<"*">();
+  let userId = params["*"];
+
+  if (!userId) {
+    userId = "2";
   }
   useEffect(() => {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${profileId}`)
-      .then((response) => {
-        props.setUserProfile(response.data);
-      });
+    props.getUserProfile(userId);
   }, []);
 
   return <Profile {...props} profile={props.profile} />;
 };
 type MapStateToPropsType = {
   profile: ProfilePageType;
+  isAuth: boolean;
 };
 type MapDispatchToPropsType = {
-  setUserProfile: (profile: ProfilePageType) => void;
+  getUserProfile: any;
 };
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
+    isAuth: state.auth.isAuth,
   };
 };
 
@@ -44,5 +48,5 @@ export default connect<
   {},
   AppStateType
 >(mapStateToProps, {
-  setUserProfile,
+  getUserProfile,
 })(ProfileContainer);
