@@ -1,4 +1,5 @@
 import { userAPI } from "../../api/api";
+import { Dispatch } from "redux";
 
 export type PostType = {
   id: number;
@@ -10,7 +11,7 @@ export type ProfilePageType = {
   newPostText: string;
   profile: any;
 };
-type ActionsTypes =
+type profileReducerActionsTypes =
   | ReturnType<typeof addPostActionCreator>
   | ReturnType<typeof updateNewPostTextActionCreator>
   | ReturnType<typeof setUserProfile>;
@@ -30,11 +31,12 @@ export const setUserProfile = (profile: any) =>
     profile,
   } as const);
 
-export const getUserProfile = (userID: string) => (dispatch: any) => {
-  userAPI.getProfile(userID).then((response) => {
-    dispatch(setUserProfile(response.data));
-  });
-};
+export const getUserProfile =
+  (userID: string) => (dispatch: Dispatch<profileReducerActionsTypes>) => {
+    userAPI.getProfile(userID).then((response) => {
+      dispatch(setUserProfile(response.data));
+    });
+  };
 
 let initialState: ProfilePageType = {
   posts: [
@@ -48,7 +50,7 @@ let initialState: ProfilePageType = {
 
 const profileReducer = (
   state: ProfilePageType = initialState,
-  action: ActionsTypes
+  action: profileReducerActionsTypes
 ): ProfilePageType => {
   switch (action.type) {
     case "ADD-POST":
