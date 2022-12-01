@@ -64,14 +64,6 @@ export const Users: FC<UsersType> = ({
                 disabled={followingInProgress.some((id) => id === u.id)}
                 onClick={() => {
                   unfollow(u.id);
-                  // setFollowingInProgress(true, u.id);
-                  //
-                  // userAPI.unfollowUser(u.id).then((response) => {
-                  //   if (response.data.resultCode === 0) {
-                  //     unfollow(u.id);
-                  //   }
-                  //   setFollowingInProgress(false, u.id);
-                  // });
                 }}
               >
                 unfollow
@@ -81,13 +73,6 @@ export const Users: FC<UsersType> = ({
                 disabled={followingInProgress.some((id) => id === u.id)}
                 onClick={() => {
                   follow(u.id);
-                  // setFollowingInProgress(true, u.id);
-                  // userAPI.followUser(u.id).then((response) => {
-                  //   if (response.data.resultCode === 0) {
-                  //     follow(u.id);
-                  //   }
-                  //   setFollowingInProgress(false, u.id);
-                  // });
                 }}
               >
                 follow

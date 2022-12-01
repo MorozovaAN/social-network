@@ -1,4 +1,5 @@
 import { userAPI } from "../../api/api";
+import { Dispatch } from "redux";
 
 export type UsersPageType = {
   users: UserType[];
@@ -6,7 +7,7 @@ export type UsersPageType = {
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
-  followingInProgress: any[];
+  followingInProgress: number[];
 };
 export type UserType = {
   name: string;
@@ -34,8 +35,8 @@ type ActionsTypes =
   | ReturnType<typeof followSuccess>
   | ReturnType<typeof unfollowSuccess>
   | ReturnType<typeof setUsers>
-  | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setTotalUsersCountAC>
+  | ReturnType<typeof setCurrentPage>
+  | ReturnType<typeof setTotalUsersCount>
   | ReturnType<typeof setIsFetching>
   | ReturnType<typeof setFollowingInProgress>;
 
@@ -45,9 +46,9 @@ export const unfollowSuccess = (userID: number) =>
   ({ type: "UNFOLLOW", userID } as const);
 export const setUsers = (users: UserType[]) =>
   ({ type: "SET-USERS", users } as const);
-export const setCurrentPageAC = (pageNumber: number) =>
+export const setCurrentPage = (pageNumber: number) =>
   ({ type: "SET-CURRENT-PAGE", pageNumber } as const);
-export const setTotalUsersCountAC = (count: number) =>
+export const setTotalUsersCount = (count: number) =>
   ({ type: "SET-USERS-TOTAL-COUNT", count } as const);
 export const setIsFetching = (isFetching: boolean) =>
   ({ type: "SET-IS-FETCHING", isFetching } as const);
@@ -98,20 +99,20 @@ const usersReducer = (
   }
 };
 
-export const getUsers = (currentPage: any, pageSize: any) => {
-  return (dispatch: any) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
     dispatch(setIsFetching(true));
     userAPI.getUsers(currentPage, pageSize).then((data) => {
       dispatch(setIsFetching(false));
       dispatch(setUsers(data.items));
-      //this.props.setTotalUsersCount(response.data.totalCount);
+      //dispatch(setTotalUsersCount(data.totalCount));
       //всего там 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
     });
   };
 };
 
 export const follow = (userId: number) => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
     dispatch(setFollowingInProgress(true, userId));
 
     userAPI.followUser(userId).then((response) => {
@@ -124,7 +125,7 @@ export const follow = (userId: number) => {
 };
 
 export const unfollow = (userId: number) => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch<ActionsTypes>) => {
     dispatch(setFollowingInProgress(true, userId));
 
     userAPI.unfollowUser(userId).then((response) => {

@@ -2,10 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { UsersAPIComponent } from "./UsersAPIComponent";
 import {
-  setCurrentPageAC,
-  setTotalUsersCountAC,
+  setCurrentPage,
   UserType,
-  setFollowingInProgress,
   getUsers,
   follow,
   unfollow,
@@ -18,17 +16,12 @@ type MapStateToPropsType = {
   totalUsersCount: number;
   currentPage: number;
   isFetching: boolean;
-  followingInProgress: any[];
+  followingInProgress: number[];
 };
 type MapDispatchToPropsType = {
   follow: (userID: number) => void;
   unfollow: (userID: number) => void;
   setCurrentPage: (pageNumber: number) => void;
-  setTotalUsersCount: (count: number) => void;
-  setFollowingInProgress: (
-    followingInProgress: boolean,
-    userId: number
-  ) => void;
   getUsers: any;
 };
 export type UsersType = MapStateToPropsType & MapDispatchToPropsType;
@@ -52,8 +45,6 @@ export const UsersContainer = connect<
 >(mapStateToProps, {
   follow,
   unfollow,
-  setCurrentPage: setCurrentPageAC,
-  setTotalUsersCount: setTotalUsersCountAC,
-  setFollowingInProgress: setFollowingInProgress,
+  setCurrentPage,
   getUsers,
 })(UsersAPIComponent);
