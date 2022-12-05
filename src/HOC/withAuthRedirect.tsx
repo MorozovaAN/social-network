@@ -15,12 +15,12 @@ export function withAuthRedirectComponent(Component: ComponentType<any>) {
   const RedirectComponent = (props: mapStateToPropsType) => {
     const { isAuth, ...restProps } = props;
     const navigate = useNavigate();
-    console.log(restProps);
+
     useEffect(() => {
       if (!isAuth) {
         return navigate("/login");
       }
-    }, [isAuth]);
+    }, [isAuth, navigate]);
 
     return <Component {...restProps} />;
   };

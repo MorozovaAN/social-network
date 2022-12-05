@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentType } from "react";
 import { connect } from "react-redux";
 import { UsersAPIComponent } from "./UsersAPIComponent";
 import {
@@ -9,6 +9,7 @@ import {
   unfollow,
 } from "../../redux/reducers/users-reducer";
 import { AppStateType } from "../../redux/store";
+import { compose } from "redux";
 
 type MapStateToPropsType = {
   users: UserType[];
@@ -36,15 +37,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     followingInProgress: state.usersPage.followingInProgress,
   };
 };
-
-export const UsersContainer = connect<
-  MapStateToPropsType,
-  MapDispatchToPropsType,
-  {},
-  AppStateType
->(mapStateToProps, {
-  follow,
-  unfollow,
-  setCurrentPage,
-  getUsers,
-})(UsersAPIComponent);
+export const UsersContainer = compose<ComponentType>(
+  connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setCurrentPage,
+    getUsers,
+  })
+)(UsersAPIComponent);
