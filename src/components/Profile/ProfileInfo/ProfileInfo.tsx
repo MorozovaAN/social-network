@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import style from "./ProfileInfo.module.css";
+import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
+
 type ProfileInfoType = {
   profile: any;
 };
@@ -14,6 +16,7 @@ export const ProfileInfo: FC<ProfileInfoType> = (props) => {
       <div className={style.info}>
         <img width="100" height="100" src={url} alt="avatar" />
         <div>
+          <ProfileStatus />
           <p>{props.profile.fullName}</p>
           <p>{props.profile.aboutMe}</p>
         </div>
