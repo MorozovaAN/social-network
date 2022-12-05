@@ -4,21 +4,28 @@ import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 
 type ProfileInfoType = {
   profile: any;
+  status: string;
+  updateUserStatus: any;
 };
-export const ProfileInfo: FC<ProfileInfoType> = (props) => {
-  if (!props.profile) {
+export const ProfileInfo: FC<ProfileInfoType> = ({
+  profile,
+  status,
+  updateUserStatus,
+}) => {
+  if (!profile) {
     return <span>preloader</span>;
   } else {
-    let url = props.profile.photos.large
-      ? props.profile.photos.large
+    let url = profile.photos.large
+      ? profile.photos.large
       : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg";
     return (
       <div className={style.info}>
         <img width="100" height="100" src={url} alt="avatar" />
         <div>
-          <ProfileStatus />
-          <p>{props.profile.fullName}</p>
-          <p>{props.profile.aboutMe}</p>
+          <p>{profile.fullName}</p>
+          <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
+          <i>About me:</i>
+          <p>{profile.aboutMe}</p>
         </div>
       </div>
     );
