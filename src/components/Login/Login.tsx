@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import s from "./Login.module.css";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { ElementControl } from "../common/FormsControls/TextareaControl/ElementControl";
+import { maxLengthCreator, requiredField } from "../../helpers/validators";
 
 export const Login = () => {
   const onSubmit = (formData: FormDataType) => {
@@ -19,16 +21,27 @@ type FormDataType = {
   password: string;
   rememberMe: boolean;
 };
+
+const maxLength10 = maxLengthCreator(10);
 export const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   const { handleSubmit } = props;
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <Field component="input" name="login" type="text" placeholder="login" />
       <Field
-        component="input"
+        component={ElementControl}
+        element="input"
+        validate={[requiredField, maxLength10]}
+        name="login"
+        type="text"
+        placeholder="login"
+      />
+      <Field
+        component={ElementControl}
+        element="input"
         name="password"
         type="password"
+        validate={[requiredField, maxLength10]}
         placeholder="password"
       />
       <div>

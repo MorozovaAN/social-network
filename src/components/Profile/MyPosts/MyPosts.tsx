@@ -2,6 +2,8 @@ import React, { FC } from "react";
 import { Post } from "./Post/Post";
 import { PostType } from "../../../redux/reducers/profile-reducer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { maxLengthCreator, requiredField } from "../../../helpers/validators";
+import { ElementControl } from "../../common/FormsControls/TextareaControl/ElementControl";
 
 type MyPostsType = {
   posts: Array<PostType>;
@@ -24,15 +26,17 @@ export const MyPosts: FC<MyPostsType> = ({ posts, addPost }) => {
     </div>
   );
 };
-
+const maxLength50 = maxLengthCreator(50);
 export const AddNewPostForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   const { handleSubmit } = props;
 
   return (
     <form onSubmit={handleSubmit}>
       <Field
-        component="textarea"
+        component={ElementControl}
+        element="textarea"
         name="newPostBody"
+        validate={[requiredField, maxLength50]}
         placeholder="Enter your message"
       />
 
