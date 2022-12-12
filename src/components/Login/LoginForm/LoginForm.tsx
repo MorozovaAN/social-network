@@ -1,29 +1,11 @@
 import React, { FC } from "react";
-import s from "./Login.module.css";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { ElementControl } from "../common/FormsControls/TextareaControl/ElementControl";
-import { maxLengthCreator, requiredField } from "../../helpers/validators";
+import s from "../Login/Login.module.css";
+import { ElementControl } from "../../common/FormsControls/TextareaControl/ElementControl";
+import { maxLengthCreator, requiredField } from "../../../helpers/validators";
 
-export const Login = () => {
-  const onSubmit = (formData: FormDataType) => {
-    console.log(formData);
-  };
-
-  return (
-    <>
-      <h1>login</h1>
-      <LoginReduxForm onSubmit={onSubmit} />
-    </>
-  );
-};
-type FormDataType = {
-  login: string;
-  password: string;
-  rememberMe: boolean;
-};
-
-const maxLength10 = maxLengthCreator(10);
-export const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
+const maxLength10 = maxLengthCreator(100);
+const LoginForm: FC<InjectedFormProps<LoginFormDataType>> = (props) => {
   const { handleSubmit } = props;
 
   return (
@@ -54,6 +36,12 @@ export const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   );
 };
 
-export const LoginReduxForm = reduxForm<FormDataType>({
+export type LoginFormDataType = {
+  login: string;
+  password: string;
+  rememberMe: boolean;
+};
+
+export const LoginReduxForm = reduxForm<LoginFormDataType>({
   form: "login",
 })(LoginForm);

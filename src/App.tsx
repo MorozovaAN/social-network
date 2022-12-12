@@ -6,7 +6,7 @@ import { DialoguesContainer } from "./components/ Dialogues/DialoguesContainer";
 import { UsersContainer } from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import { Login } from "./components/Login/Login";
+import Login from "./components/Login/Login/Login";
 
 type AppType = {};
 
