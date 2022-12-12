@@ -7,3 +7,6 @@
 .btnSubmit {
   width: 60px;
 }
+.formError {
+  color: red;
+}

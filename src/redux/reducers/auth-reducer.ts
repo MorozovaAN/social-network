@@ -1,5 +1,6 @@
 import { authAPI } from "../../api/api";
 import { Dispatch } from "redux";
+import { stopSubmit } from "redux-form";
 
 type authReducerActionsType = ReturnType<typeof setAuthUserData>;
 type authReducerStateType = {
@@ -65,6 +66,12 @@ export const loginUser =
     authAPI.login(email, password, rememberMe).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(getAuthUserData());
+      } else {
+        const message =
+          response.data.messages.length > 0
+            ? response.data.messages[0]
+            : "Email or password is wrong";
+        dispatch(stopSubmit("login", { _error: message }));
       }
     });
   };

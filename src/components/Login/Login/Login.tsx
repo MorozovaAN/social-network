@@ -11,8 +11,8 @@ const Login = (props: any) => {
 
   const onSubmit = (formData: any) => {
     //todo fix any
-    const { login, password, rememberMe } = formData;
-    props.loginUser(login, password, rememberMe);
+    const { email, password, rememberMe } = formData;
+    props.loginUser(email, password, rememberMe);
   };
 
   return props.isAuth ? (

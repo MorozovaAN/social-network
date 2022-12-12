@@ -18,13 +18,21 @@ type ProfileContainerType = {
   updateUserStatus: any; //todo
   profile: any; //todo
   status: string;
+  authorizedUserId: number;
 };
 
 const ProfileContainer = (props: ProfileContainerType) => {
-  const { getUserProfile, getUserStatus, updateUserStatus, profile, status } =
-    props;
+  const {
+    getUserProfile,
+    getUserStatus,
+    updateUserStatus,
+    profile,
+    status,
+    authorizedUserId,
+  } = props;
+
   const params = useParams<"*">();
-  let userId = params["*"] ? params["*"] : "9"; //todo
+  const userId = params["*"] ? params["*"] : `${authorizedUserId}`;
 
   useEffect(() => {
     getUserProfile(userId);
@@ -44,6 +52,7 @@ const ProfileContainer = (props: ProfileContainerType) => {
 type MapStateToPropsType = {
   profile: ProfilePageType;
   status: string;
+  authorizedUserId: number | null;
 };
 type MapDispatchToPropsType = {
   getUserProfile: any; //todo
@@ -55,6 +64,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
   };
 };
 

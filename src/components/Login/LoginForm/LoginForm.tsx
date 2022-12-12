@@ -6,7 +6,7 @@ import { maxLengthCreator, requiredField } from "../../../helpers/validators";
 
 const maxLength10 = maxLengthCreator(100);
 const LoginForm: FC<InjectedFormProps<LoginFormDataType>> = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, error } = props;
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
@@ -14,7 +14,7 @@ const LoginForm: FC<InjectedFormProps<LoginFormDataType>> = (props) => {
         component={ElementControl}
         element="input"
         validate={[requiredField, maxLength10]}
-        name="login"
+        name="email"
         type="text"
         placeholder="login"
       />
@@ -30,14 +30,14 @@ const LoginForm: FC<InjectedFormProps<LoginFormDataType>> = (props) => {
         <Field component="input" name="rememberMe" type="checkbox" />
         <span>remember me</span>
       </div>
-
+      {error && <p className={s.formError}>{error}</p>}
       <button className={s.btnSubmit}>log in</button>
     </form>
   );
 };
 
 export type LoginFormDataType = {
-  login: string;
+  email: string;
   password: string;
   rememberMe: boolean;
 };
