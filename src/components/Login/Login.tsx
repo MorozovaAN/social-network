@@ -24,20 +24,15 @@ export const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
 
   return (
     <form onSubmit={handleSubmit} className={s.form}>
+      <Field component="input" name="login" type="text" placeholder="login" />
       <Field
-        component={"input"}
-        name={"login"}
-        type="text"
-        placeholder="login"
-      />
-      <Field
-        component={"input"}
-        name={"password"}
+        component="input"
+        name="password"
         type="password"
         placeholder="password"
       />
       <div>
-        <Field component={"input"} name={"rememberMe"} type="checkbox" />
+        <Field component="input" name="rememberMe" type="checkbox" />
         <span>remember me</span>
       </div>
 
@@ -46,6 +41,6 @@ export const LoginForm: FC<InjectedFormProps<FormDataType>> = (props) => {
   );
 };
 
-const LoginReduxForm = reduxForm<FormDataType>({
+export const LoginReduxForm = reduxForm<FormDataType>({
   form: "login",
 })(LoginForm);

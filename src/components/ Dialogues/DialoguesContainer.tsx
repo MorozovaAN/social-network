@@ -2,8 +2,7 @@ import React from "react";
 import { Dialogues } from "./Dialogues";
 import {
   DialoguesPageType,
-  sendMessageActionCreator,
-  updateNewMessageTextActionCreator,
+  sendMessageAC,
 } from "../../redux/reducers/dialodues-reducer";
 import { connect } from "react-redux";
 import { AppStateType } from "../../redux/store";
@@ -14,8 +13,7 @@ type mapStateToPropsType = {
   dialoguesPage: DialoguesPageType;
 };
 type mapDispatchToPropsType = {
-  updateNewMessageText: (newMessage: string) => void;
-  sendMessage: () => void;
+  sendMessage: (newMessageBody: string) => void;
 };
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -25,11 +23,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 };
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
   return {
-    updateNewMessageText: (newMessage: string) => {
-      dispatch(updateNewMessageTextActionCreator(newMessage));
-    },
-    sendMessage: () => {
-      dispatch(sendMessageActionCreator());
+    sendMessage: (newMessageBody: string) => {
+      dispatch(sendMessageAC(newMessageBody));
     },
   };
 };
