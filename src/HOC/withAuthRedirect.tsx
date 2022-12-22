@@ -17,6 +17,7 @@ export function withAuthRedirectComponent(Component: ComponentType<any>) {
     const navigate = useNavigate();
 
     useEffect(() => {
+      //todo моргает при редиректе (т.е. сначала показывает разметку, а потом уже редиректит)
       if (!isAuth) {
         return navigate("/login");
       }
