@@ -4,12 +4,20 @@ import { UsersAPIComponent } from "./UsersAPIComponent";
 import {
   setCurrentPage,
   UserType,
-  getUsers,
+  requestUsers,
   follow,
   unfollow,
 } from "../../redux/reducers/users-reducer";
 import { AppStateType } from "../../redux/store";
 import { compose } from "redux";
+import {
+  getAllUsers,
+  getCurrentPage,
+  getFetching,
+  getFollowingInProgress,
+  getPageSize,
+  getTotalUsersCount,
+} from "../../redux/reducers/users-selectors";
 
 type MapStateToPropsType = {
   users: UserType[];
@@ -27,14 +35,25 @@ type MapDispatchToPropsType = {
 };
 export type UsersType = MapStateToPropsType & MapDispatchToPropsType;
 
+// const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+//   return {
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isFetching: state.usersPage.isFetching,
+//     followingInProgress: state.usersPage.followingInProgress,
+//   };
+// };
+
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getAllUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isFetching: getFetching(state),
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 export const UsersContainer = compose<ComponentType>(
@@ -42,6 +61,6 @@ export const UsersContainer = compose<ComponentType>(
     follow,
     unfollow,
     setCurrentPage,
-    getUsers,
+    getUsers: requestUsers,
   })
 )(UsersAPIComponent);
