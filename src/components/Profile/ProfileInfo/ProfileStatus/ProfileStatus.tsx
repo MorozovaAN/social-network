@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const ProfileStatus = (props: any) => {
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(props.status);
+
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
 
   const changeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value);
@@ -33,7 +37,7 @@ export const ProfileStatus = (props: any) => {
     />
   ) : (
     <p onDoubleClick={editStatus}>
-      <b>{status || "no status"}</b>
+      <b>{status ? status : "no status"}</b>
     </p>
   );
 };

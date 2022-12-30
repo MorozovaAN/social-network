@@ -87,7 +87,9 @@ export const getUserStatus =
 export const updateUserStatus =
   (status: string) => (dispatch: Dispatch<profileReducerActionsTypes>) => {
     profileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) dispatch(setStatus(response.data));
+      if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+      }
     });
   };
 
