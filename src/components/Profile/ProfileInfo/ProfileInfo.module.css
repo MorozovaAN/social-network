@@ -1,4 +1,34 @@
 .info {
   display: flex;
-  column-gap: 20px;
+  column-gap: 14px;
+  position: absolute;
+  top: 112px;
+  margin-left: 30px;
+  align-items: flex-end;
+}
+
+.background {
+  height: 160px;
+  width: 100%;
+  background: url("../../../images/background.jpg");
+  background-size: cover;
+  margin-bottom: 78px;
+  border-radius: 10px;
+}
+
+.avatar {
+  border-radius: 20px;
+}
+
+.avatarContainer {
+  width: 100px;
+  height: 100px;
+  box-sizing: content-box;
+  padding: 8px;
+  background: #fff;
+  border-radius: 20px;
+}
+
+.userTextsInfo {
+  height: 56px;
 }

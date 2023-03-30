@@ -4,6 +4,7 @@ import { PostType } from "../../../redux/reducers/profile-reducer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, requiredField } from "../../../helpers/validators";
 import { ElementControl } from "../../common/FormsControls/TextareaControl/ElementControl";
+import s from "./MyPosts.module.css";
 
 type MyPostsType = {
   posts: Array<PostType>;
@@ -20,7 +21,7 @@ export const MyPosts: FC<MyPostsType> = ({ posts, addPost }) => {
   };
 
   return (
-    <div>
+    <div className={s.postsContainer}>
       {postsItem}
       <AddNewPostReduxForm onSubmit={addNewPost} />
     </div>

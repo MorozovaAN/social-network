@@ -1,27 +1,28 @@
 import React from "react";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
+import logo from "../../images/developer.svg";
 
 export const Header = (props: any) => {
-  //todo fix any
-
   return (
     <header className={s.header}>
-      <img
-        alt="logo"
-        width="50"
-        height="50"
-        src="https://papik.pro/uploads/posts/2021-11/1636129272_1-papik-pro-p-vektor-logotip-foto-3.png"
-      />
-      <p>header</p>
+      <div className={s.logoContainer}>
+        <img alt="logo" width="50" height="50" src={logo} />
+        <p className={s.title}>
+          Social network <br /> for developers
+        </p>
+      </div>
 
       <div>
         {props.isAuth ? (
-          <span>
-            {props.login} <button onClick={props.logoutUser}>log out</button>
-          </span>
+          <div className={s.userContainer}>
+            <p className={s.userName}>{props.login}</p>
+            <button onClick={props.logoutUser} className={s.button}>
+              Logout
+            </button>
+          </div>
         ) : (
-          <NavLink to={"/login"}>Login</NavLink>
+          <NavLink to="/login">Login</NavLink>
         )}
       </div>
     </header>

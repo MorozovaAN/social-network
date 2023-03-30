@@ -1,12 +1,37 @@
+.app {
+  min-height: 100vh;
+  height: 100%;
+  background: #eef1f7;
+}
+
 .app-wrapper {
   display: grid;
   grid-template-columns: 1fr 5fr;
   grid-auto-rows: 100px auto;
+  gap: 20px;
+  max-width: 1020px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
 }
+
 .content-wrapper {
   padding: 20px;
   width: 100%;
-  background: lightblue;
   box-sizing: border-box;
   height: 100%;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #d6dae4;
+  box-shadow: 0 0 30px rgba(156, 160, 172, 0.9);
+}
+
+.circular-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  min-width: 100vw;
 }

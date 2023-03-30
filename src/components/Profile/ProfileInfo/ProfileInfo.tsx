@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import style from "./ProfileInfo.module.css";
+import s from "./ProfileInfo.module.css";
 import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 
 type ProfileInfoType = {
@@ -19,15 +19,27 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
       ? profile.photos.large
       : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg";
     return (
-      <div className={style.info}>
-        <img width="100" height="100" src={url} alt="avatar" />
-        <div>
-          <p>{profile.fullName}</p>
-          <ProfileStatus status={status} updateUserStatus={updateUserStatus} />
-          <i>About me:</i>
-          <p>{profile.aboutMe}</p>
+      <>
+        <div className={s.background}></div>
+        <div className={s.info}>
+          <div className={s.avatarContainer}>
+            <img
+              width="100"
+              height="100"
+              src={url}
+              alt="avatar"
+              className={s.avatar}
+            />
+          </div>
+          <div className={s.userTextsInfo}>
+            <p>{profile.fullName}</p>
+            <ProfileStatus
+              status={status}
+              updateUserStatus={updateUserStatus}
+            />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 };

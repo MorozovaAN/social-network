@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
+import s from "./Profile.module.css";
 
 type ProfileType = {
   profile: any; //todo
@@ -14,7 +15,7 @@ export const Profile: FC<ProfileType> = ({
   updateUserStatus,
 }) => {
   return (
-    <div>
+    <div className={s.profile}>
       <ProfileInfo
         profile={profile}
         status={status}
