@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { NavBar } from "./components/NavBar/Navbar";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { DialoguesContainer } from "./components/ Dialogues/DialoguesContainer";
 import { UsersContainer } from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -26,6 +26,7 @@ export class App extends React.Component<any> {
 
             <div className="content-wrapper">
               <Routes>
+                <Route path="/" element={<Navigate to="/profile" />} />
                 <Route path="/profile/*" element={<ProfileContainer />} />
                 <Route path="/dialogues/*" element={<DialoguesContainer />} />
                 <Route path="/users" element={<UsersContainer />} />
