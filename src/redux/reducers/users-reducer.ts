@@ -80,7 +80,7 @@ const usersReducer = (
       };
 
     case "SET-USERS":
-      return { ...state, users: [...action.users, ...state.users] };
+      return { ...state, users: [...action.users] };
     case "SET-CURRENT-PAGE":
       return { ...state, currentPage: action.pageNumber };
     case "SET-USERS-TOTAL-COUNT":
@@ -107,8 +107,7 @@ export const requestUsers = (page: number, pageSize: number) => {
     userAPI.getUsers(page, pageSize).then((data) => {
       dispatch(setIsFetching(false));
       dispatch(setUsers(data.items));
-      //dispatch(setTotalUsersCount(data.totalCount));
-      //всего там 20 тыщ юзеров, слишком много чтоб отображать страницы (получается больше 4тыс страниц)
+      dispatch(setTotalUsersCount(data.totalCount));
     });
   };
 };

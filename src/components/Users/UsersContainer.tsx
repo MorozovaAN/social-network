@@ -27,12 +27,14 @@ type MapStateToPropsType = {
   isFetching: boolean;
   followingInProgress: number[];
 };
+
 type MapDispatchToPropsType = {
   follow: (userID: number) => void;
   unfollow: (userID: number) => void;
   setCurrentPage: (pageNumber: number) => void;
   getUsers: any;
 };
+
 export type UsersType = MapStateToPropsType & MapDispatchToPropsType;
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -45,6 +47,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     followingInProgress: getFollowingInProgress(state),
   };
 };
+
 export const UsersContainer = compose<ComponentType>(
   connect(mapStateToProps, {
     follow,

@@ -1,6 +1,8 @@
 import React from "react";
 import { UsersType } from "./UsersContainer";
 import { Users } from "./Users";
+import CircularProgress from "@mui/material/CircularProgress";
+import s from "./UsersAPIComponent.module.css";
 
 export class UsersAPIComponent extends React.Component<UsersType> {
   componentDidMount() {
@@ -12,9 +14,11 @@ export class UsersAPIComponent extends React.Component<UsersType> {
   };
   render() {
     return (
-      <>
+      <div className={s.UsersAPIComponent}>
         {this.props.isFetching ? (
-          <span>preloader img</span>
+          <div className={s.circularProgress}>
+            <CircularProgress color="secondary" size={60} />
+          </div>
         ) : (
           <Users
             totalUsersCount={this.props.totalUsersCount}
@@ -27,7 +31,7 @@ export class UsersAPIComponent extends React.Component<UsersType> {
             followingInProgress={this.props.followingInProgress}
           />
         )}
-      </>
+      </div>
     );
   }
 }

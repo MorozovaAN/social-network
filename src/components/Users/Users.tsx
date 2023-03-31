@@ -1,7 +1,8 @@
 import s from "./Users.module.css";
 import React, { FC } from "react";
 import { UserType } from "../../redux/reducers/users-reducer";
-import { NavLink } from "react-router-dom";
+import Pagination from "@mui/material/Pagination";
+import { User } from "./User/User";
 
 type UsersType = {
   totalUsersCount: number;
@@ -24,74 +25,30 @@ export const Users: FC<UsersType> = ({
   unfollow,
   followingInProgress,
 }) => {
-  let pagesCount = Math.ceil(totalUsersCount / pageSize);
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
+  const pagesCount = Math.ceil(totalUsersCount / pageSize);
 
   return (
-    <div>
-      <div>
-        {pages.map((p, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              onPageChanged(p);
-            }}
-            className={p === currentPage ? s.selectedPage : ""}
-          >
-            {p}
-          </button>
+    <div className={s.users}>
+      <div className={s.usersContainer}>
+        {users.map((u: any) => (
+          <User
+            key={u.id}
+            userInfo={u}
+            follow={follow}
+            unfollow={unfollow}
+            followingInProgress={followingInProgress}
+          />
         ))}
       </div>
-      {users.map((u: any) => (
-        <div className={s.container} key={u.id}>
-          <div>
-            <NavLink to={`/profile/` + u.id}>
-              <img
-                className={s.avatar}
-                src={
-                  u.photos.small
-                    ? u.photos.small
-                    : "https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg"
-                }
-                alt="avatar"
-              />
-            </NavLink>
-            {u.followed ? (
-              <button
-                disabled={followingInProgress.some((id) => id === u.id)}
-                onClick={() => {
-                  unfollow(u.id);
-                }}
-              >
-                unfollow
-              </button>
-            ) : (
-              <button
-                disabled={followingInProgress.some((id) => id === u.id)}
-                onClick={() => {
-                  follow(u.id);
-                }}
-              >
-                follow
-              </button>
-            )}
-          </div>
 
-          <div className={s.infoContainer}>
-            <div>
-              <h3 className={s.userName}>{u.name}</h3> <span>{u.status}</span>
-            </div>
-
-            <div>
-              <p>{"u.location.city"},</p>
-              <p>{"u.location.country"}</p>
-            </div>
-          </div>
-        </div>
-      ))}
+      <Pagination
+        count={pagesCount}
+        page={currentPage}
+        siblingCount={5}
+        onChange={(event, page) => onPageChanged(Number(page))}
+        shape="rounded"
+        color="secondary"
+      />
     </div>
   );
 };
