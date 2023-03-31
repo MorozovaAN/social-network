@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import s from "./ProfileStatus.module.css";
+import TextField from "@mui/material/TextField";
+import DoneIcon from "@mui/icons-material/Done";
 
 export const ProfileStatus = (props: any) => {
   const [editMode, setEditMode] = useState(false);
@@ -28,16 +32,24 @@ export const ProfileStatus = (props: any) => {
   };
 
   return editMode ? (
-    <input
-      value={status}
-      autoFocus={true}
-      onChange={changeStatus}
-      onBlur={updateStatus}
-      onKeyDown={updateStatusOnEnter}
-    />
+    <div className={s.inputContainer}>
+      <TextField
+        value={status}
+        onChange={changeStatus}
+        onBlur={updateStatus}
+        onKeyUp={updateStatusOnEnter}
+        className={s.input}
+        autoFocus
+        id="standard-basic"
+        variant="standard"
+        label=""
+      />
+      <DoneIcon className={s.doneBtn} color="primary" />
+    </div>
   ) : (
-    <p onDoubleClick={editStatus}>
-      <b>{status ? status : "no status"}</b>
-    </p>
+    <div className={s.editContainer}>
+      <p className={s.status}>{status ? status : "No status"}</p>
+      <EditIcon onClick={editStatus} className={s.editBtn} color="primary" />
+    </div>
   );
 };

@@ -23,16 +23,11 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
         <div className={s.background}></div>
         <div className={s.info}>
           <div className={s.avatarContainer}>
-            <img
-              width="100"
-              height="100"
-              src={url}
-              alt="avatar"
-              className={s.avatar}
-            />
+            <img src={url} alt="avatar" className={s.avatar} />
           </div>
+
           <div className={s.userTextsInfo}>
-            <p>{profile.fullName}</p>
+            <p className={s.name}>{profile.fullName}</p>
             <ProfileStatus
               status={status}
               updateUserStatus={updateUserStatus}

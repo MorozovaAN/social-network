@@ -18,6 +18,8 @@
 
 .avatar {
   border-radius: 20px;
+  width: 100px;
+  height: 100px;
 }
 
 .avatarContainer {
@@ -31,4 +33,9 @@
 
 .userTextsInfo {
   height: 56px;
+}
+
+.name {
+  font-size: 22px;
+  font-weight: 600;
 }

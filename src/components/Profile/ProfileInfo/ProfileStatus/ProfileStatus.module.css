@@ -1,0 +1,35 @@
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.inputContainer .input {
+  width: 280px;
+}
+
+.doneBtn {
+  align-self: flex-end;
+  cursor: pointer;
+}
+
+.editContainer {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+}
+
+.editContainer .editBtn {
+  width: 18px;
+  cursor: pointer;
+  padding: 2px;
+  transition: 0.3s linear;
+}
+
+.editBtn:hover {
+  border-radius: 4px;
+  background-color: rgba(48, 131, 215, 0.18);
+}
+
+.status {
+  font-size: 18px;
+}
