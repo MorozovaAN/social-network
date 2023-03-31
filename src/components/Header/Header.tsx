@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/developer.svg";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Header = (props: any) => {
   return (
@@ -17,9 +18,7 @@ export const Header = (props: any) => {
         {props.isAuth ? (
           <div className={s.userContainer}>
             <p className={s.userName}>{props.login}</p>
-            <button onClick={props.logoutUser} className={s.button}>
-              Logout
-            </button>
+            <LogoutIcon className={s.logoutBtn} />
           </div>
         ) : (
           <NavLink to="/login">Login</NavLink>

@@ -30,6 +30,19 @@
   font-family: "Rubik", sans-serif;
 }
 
-.button {
-  width: 100%;
+.userContainer {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+}
+
+.logoutBtn {
+  cursor: pointer;
+  padding: 2px;
+  transition: 0.3s linear;
+}
+
+.logoutBtn:hover {
+  border-radius: 4px;
+  background-color: rgba(156, 39, 180, 0.19);
 }
