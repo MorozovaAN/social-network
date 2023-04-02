@@ -1,21 +1,42 @@
 import React from "react";
-import style from "./Post.module.css";
+import s from "./Post.module.css";
+import { ProfileType } from "../../../../redux/reducers/profile-reducer";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 type PostType = {
   message: string;
   likesCount: number;
+  profile: ProfileType;
+
+  authorizedUserId: number | null;
 };
 
-export const Post: React.FC<PostType> = (props) => {
-  return (
-    <div className={style.post}>
-      <img
-        className={style.avatar}
-        src="https://android-obzor.com/wp-content/uploads/2022/02/5-1.jpg"
-        alt="avatar"
-      />
-      <p>{props.message}</p>
-      <span>likes: {props.likesCount}</span>
-    </div>
+export const Post: React.FC<PostType> = ({
+  profile,
+  authorizedUserId,
+  message,
+  likesCount,
+}) => {
+  return profile ? (
+    <>
+      {authorizedUserId === profile.userId && (
+        <div className={s.post}>
+          <img
+            className={s.avatar}
+            src={profile.photos.small ? profile.photos.small : ""}
+            alt="avatar"
+          />
+          <div className={s.container}>
+            <p>{message}</p>
+            <div className={s.like}>
+              <FavoriteIcon color="secondary" />
+              {likesCount}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  ) : (
+    <></>
   );
 };

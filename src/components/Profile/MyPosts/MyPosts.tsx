@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Post } from "./Post/Post";
-import { PostType } from "../../../redux/reducers/profile-reducer";
+import { PostType, ProfileType } from "../../../redux/reducers/profile-reducer";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, requiredField } from "../../../helpers/validators";
 import { ElementControl } from "../../common/FormsControls/TextareaControl/ElementControl";
@@ -9,11 +9,26 @@ import s from "./MyPosts.module.css";
 type MyPostsType = {
   posts: Array<PostType>;
   addPost: (newPostBody: string) => void;
+
+  profile: ProfileType;
+
+  authorizedUserId: number | null;
 };
 
-export const MyPosts: FC<MyPostsType> = ({ posts, addPost }) => {
-  let postsItem = posts.map((p) => (
-    <Post key={p.id} message={p.text} likesCount={p.likesCount} />
+export const MyPosts: FC<MyPostsType> = ({
+  posts,
+  addPost,
+  profile,
+  authorizedUserId,
+}) => {
+  const postsItem = posts.map((p) => (
+    <Post
+      key={p.id}
+      message={p.text}
+      likesCount={p.likesCount}
+      profile={profile}
+      authorizedUserId={authorizedUserId}
+    />
   ));
 
   const addNewPost = (formData: FormDataType) => {
