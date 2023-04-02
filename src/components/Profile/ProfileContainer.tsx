@@ -6,19 +6,22 @@ import {
   getUserProfile,
   getUserStatus,
   ProfilePageType,
+  ProfileType,
   updateUserStatus,
+  updateUserPhoto,
 } from "../../redux/reducers/profile-reducer";
 import { useParams } from "react-router-dom";
 import { withAuthRedirectComponent } from "../../HOC/withAuthRedirect";
 import { compose } from "redux";
 
 type ProfileContainerType = {
-  getUserProfile: any; //todo
-  getUserStatus: any; //todo
-  updateUserStatus: any; //todo
-  profile: any; //todo
+  getUserProfile: (userID: string) => void;
+  getUserStatus: (title: string) => void;
+  updateUserStatus: (value: string) => void;
+  profile: ProfileType;
   status: string;
   authorizedUserId: number;
+  updateUserPhoto: (file: File) => void;
 };
 
 const ProfileContainer = (props: ProfileContainerType) => {
@@ -29,22 +32,25 @@ const ProfileContainer = (props: ProfileContainerType) => {
     profile,
     status,
     authorizedUserId,
+    updateUserPhoto,
   } = props;
 
   const params = useParams<"*">();
-  const userId = params["*"] ? params["*"] : `${authorizedUserId}`;
 
   useEffect(() => {
+    const userId = params["*"] ? params["*"] : `${authorizedUserId}`;
     getUserProfile(userId);
     getUserStatus(userId);
-  }, []);
+  }, [params]);
 
   return (
     <Profile
       {...props}
+      authorizedUserId={authorizedUserId}
       profile={profile}
       status={status}
       updateUserStatus={updateUserStatus}
+      updateUserPhoto={updateUserPhoto}
     />
   );
 };
@@ -54,10 +60,12 @@ type MapStateToPropsType = {
   status: string;
   authorizedUserId: number | null;
 };
+
 type MapDispatchToPropsType = {
-  getUserProfile: any; //todo
-  getUserStatus: any; //todo
-  updateUserStatus: any; //todo
+  getUserProfile: (userID: string) => void;
+  getUserStatus: (userID: string) => void;
+  updateUserStatus: (title: string) => void;
+  updateUserPhoto: (file: File) => void;
 };
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -75,6 +83,7 @@ export default compose(
       getUserProfile,
       getUserStatus,
       updateUserStatus,
+      updateUserPhoto,
     }
   ),
   withAuthRedirectComponent

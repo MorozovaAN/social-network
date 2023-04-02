@@ -2,17 +2,22 @@ import React, { FC } from "react";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
+import { ProfileType } from "../../redux/reducers/profile-reducer";
 
-type ProfileType = {
-  profile: any; //todo
+type ProfilePropsType = {
+  profile: ProfileType;
+  authorizedUserId: number;
   status: string;
-  updateUserStatus: any; //todo
+  updateUserStatus: (title: string) => void;
+  updateUserPhoto: (file: File) => void;
 };
 
-export const Profile: FC<ProfileType> = ({
+export const Profile: FC<ProfilePropsType> = ({
   profile,
   status,
   updateUserStatus,
+  authorizedUserId,
+  updateUserPhoto,
 }) => {
   return (
     <div className={s.profile}>
@@ -20,6 +25,8 @@ export const Profile: FC<ProfileType> = ({
         profile={profile}
         status={status}
         updateUserStatus={updateUserStatus}
+        authorizedUserId={authorizedUserId}
+        updateUserPhoto={updateUserPhoto}
       />
       <MyPostsContainer />
     </div>

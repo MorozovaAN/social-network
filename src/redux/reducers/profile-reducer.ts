@@ -1,25 +1,42 @@
 import { profileAPI } from "../../api/api";
 import { Dispatch } from "redux";
 
+export type ProfileType = {
+  aboutMe: null | string;
+  contacts: {
+    facebook: null | string;
+    website: null | string;
+    vk: null | string;
+    twitter: null | string;
+    instagram: null | string;
+  };
+  fullName: string;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: null | string;
+  photos: { small: null | string; large: null | string };
+  userId: number;
+};
+
 export type PostType = {
   id: number;
   text: string;
   likesCount: number;
 };
+
 export type ProfilePageType = {
   posts: PostType[];
   profile: any;
   status: string;
 };
 
-let initialState: ProfilePageType = {
+const initialState: ProfilePageType = {
   posts: [
     { id: 1, text: "Hi, how are you", likesCount: 12 },
     { id: 2, text: "It's my friends", likesCount: 15 },
     { id: 3, text: "yoo", likesCount: 5 },
   ],
   profile: null,
-  status: "дефолт",
+  status: "No status",
 };
 
 const profileReducer = (
@@ -42,6 +59,9 @@ const profileReducer = (
     case "SET-USER-STATUS":
       return { ...state, status: action.status };
 
+    case "SET-USER-PHOTO":
+      return { ...state, profile: { ...state.profile, photos: action.photos } };
+
     default:
       return state;
   }
@@ -50,7 +70,8 @@ const profileReducer = (
 type profileReducerActionsTypes =
   | ReturnType<typeof addPostAC>
   | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof setStatus>;
+  | ReturnType<typeof setStatus>
+  | ReturnType<typeof setPhoto>;
 
 export const addPostAC = (newPostBody: string) =>
   ({
@@ -68,6 +89,15 @@ export const setStatus = (status: string) =>
   ({
     type: "SET-USER-STATUS",
     status,
+  } as const);
+
+export const setPhoto = (photos: {
+  small: null | string;
+  large: null | string;
+}) =>
+  ({
+    type: "SET-USER-PHOTO",
+    photos,
   } as const);
 
 export const getUserProfile =
@@ -89,6 +119,16 @@ export const updateUserStatus =
     profileAPI.updateStatus(status).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(setStatus(status));
+      }
+    });
+  };
+
+export const updateUserPhoto =
+  (file: File) => (dispatch: Dispatch<profileReducerActionsTypes>) => {
+    profileAPI.updateUserPhoto(file).then((response) => {
+      if (response.data.resultCode === 0) {
+        console.log(response);
+        dispatch(setPhoto(response.data.data.photos));
       }
     });
   };

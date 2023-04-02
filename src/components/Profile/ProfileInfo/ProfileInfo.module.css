@@ -12,7 +12,7 @@
   width: 100%;
   background: url("../../../images/background.jpg");
   background-size: cover;
-  margin-bottom: 78px;
+  margin-bottom: 100px;
   border-radius: 10px;
 }
 
@@ -38,4 +38,24 @@
 .name {
   font-size: 22px;
   font-weight: 600;
+}
+
+.inputUpdatePhoto {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.labelUpdatePhoto {
+  position: absolute;
+  top: 94px;
+  left: 89px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.iconUpdatePhoto {
+  padding: 2px 3px 3px 2px;
+  position: relative;
+  background: rgb(255 255 255);
+  border-radius: 4px;
 }

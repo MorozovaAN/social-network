@@ -49,7 +49,9 @@ export const ProfileStatus = (props: any) => {
   ) : (
     <div className={s.editContainer}>
       <p className={s.status}>{status ? status : "No status"}</p>
-      <EditIcon onClick={editStatus} className={s.editBtn} />
+      {props.myProfile && (
+        <EditIcon onClick={editStatus} className={s.editBtn} />
+      )}
     </div>
   );
 };
