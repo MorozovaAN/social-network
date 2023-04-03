@@ -1,27 +1,37 @@
-import React from "react";
+import React, { FC } from "react";
 import s from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/developer.svg";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
-export const Header = (props: any) => {
+type HeaderPropsType = {
+  logoutUser: () => void;
+  isAuth: boolean;
+  login: string;
+};
+
+export const Header: FC<HeaderPropsType> = ({ logoutUser, isAuth, login }) => {
   return (
     <header className={s.header}>
       <div className={s.logoContainer}>
         <img alt="logo" width="50" height="50" src={logo} />
-        <p className={s.title}>
+        <h1 className={s.title}>
           Social network <br /> for developers
-        </p>
+        </h1>
       </div>
 
       <div>
-        {props.isAuth ? (
+        {isAuth ? (
           <div className={s.userContainer}>
-            <p className={s.userName}>{props.login}</p>
-            <LogoutIcon className={s.logoutBtn} />
+            <p className={s.userName}>{login}</p>
+            <LogoutIcon className={s.icon} onClick={() => logoutUser()} />
           </div>
         ) : (
-          <NavLink to="/login">Login</NavLink>
+          <NavLink to="/login" className={s.loginContainer}>
+            <p>Sign in</p>
+            <LoginIcon fontSize="small" className={s.icon} />
+          </NavLink>
         )}
       </div>
     </header>

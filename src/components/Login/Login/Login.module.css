@@ -1,12 +1,38 @@
 .form {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 26px;
   align-items: center;
+  width: 360px;
+  margin: 0 auto;
 }
-.btnSubmit {
-  width: 60px;
+
+.form .item {
+  width: 100%;
 }
-.formError {
-  color: red;
+
+.error {
+  color: #d53b3b;
+}
+
+.title {
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  text-align: center;
+  color: #231f5c;
+  margin-bottom: 30px;
+}
+
+.checkbox {
+  align-self: flex-start;
+}
+
+.buttonsContainer {
+  display: flex;
+  column-gap: 20px;
+}
+
+.button {
+  width: 200px;
 }

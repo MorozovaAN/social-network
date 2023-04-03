@@ -1,21 +1,22 @@
 import { authAPI } from "../../api/api";
 import { Dispatch } from "redux";
-import { stopSubmit } from "redux-form";
 
-type authReducerActionsType = ReturnType<typeof setAuthUserData>;
 type authReducerStateType = {
   id: number | null;
   email: string | null;
   login: string | null;
   isFetching: boolean;
   isAuth: boolean;
+  error: string;
 };
+
 const initialState: authReducerStateType = {
   id: null,
   email: null,
   login: null,
   isFetching: false,
   isAuth: false,
+  error: "",
 };
 
 export const authReducer = (
@@ -28,10 +29,19 @@ export const authReducer = (
         ...state,
         ...action.payload,
       };
+    case "SET-ERROR":
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return state;
   }
 };
+
+type authReducerActionsType =
+  | ReturnType<typeof setAuthUserData>
+  | ReturnType<typeof setError>;
 
 export const setAuthUserData = (
   id: number | null,
@@ -50,6 +60,12 @@ export const setAuthUserData = (
   } as const;
 };
 
+export const setError = (error: string) =>
+  ({
+    type: "SET-ERROR",
+    error,
+  } as const);
+
 export const getAuthUserData =
   () => (dispatch: Dispatch<authReducerActionsType>) => {
     return authAPI.me().then((response) => {
@@ -62,16 +78,11 @@ export const getAuthUserData =
 
 export const loginUser =
   (email: string, password: string, rememberMe: boolean) => (dispatch: any) => {
-    //todo fix any
     authAPI.login(email, password, rememberMe).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(getAuthUserData());
       } else {
-        const message =
-          response.data.messages.length > 0
-            ? response.data.messages[0]
-            : "Email or password is wrong";
-        dispatch(stopSubmit("login", { _error: message }));
+        dispatch(setError(response.data.messages));
       }
     });
   };

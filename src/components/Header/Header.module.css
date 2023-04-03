@@ -36,13 +36,28 @@
   align-items: center;
 }
 
-.logoutBtn {
+.icon {
   cursor: pointer;
   padding: 2px;
   transition: 0.3s linear;
 }
 
-.logoutBtn:hover {
+.icon:hover {
   border-radius: 4px;
   background-color: rgba(156, 39, 180, 0.19);
+}
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  color: #231f5c;
+  text-decoration: none;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.loginContainer:hover {
+  color: #9c27b4;
 }

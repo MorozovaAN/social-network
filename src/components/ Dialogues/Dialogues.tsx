@@ -3,7 +3,6 @@ import style from "./Dialogues.module.css";
 import { Dialog } from "./Dialog/Dialog";
 import { Message } from "./Message/Message";
 import { DialoguesPageType } from "../../redux/reducers/dialodues-reducer";
-import { Field, InjectedFormProps, reduxForm } from "redux-form";
 
 type DialoguesType = {
   dialoguesPage: DialoguesPageType;
@@ -22,10 +21,6 @@ export const Dialogues: FC<DialoguesType> = ({
     <Message key={m.id} message={m.message} />
   ));
 
-  const addNewMessage = (formData: FormDataType) => {
-    sendMessage(formData.newMessageBody);
-  };
-
   return (
     <div className={style.container}>
       <div className={style.dialoguesContainer}>
@@ -33,32 +28,8 @@ export const Dialogues: FC<DialoguesType> = ({
       </div>
       <div className={style.messages}>
         <div>{messagesItem}</div>
-        <AddNewMessageReduxForm onSubmit={addNewMessage} />
+        <textarea></textarea>
       </div>
     </div>
   );
 };
-
-export const AddNewMessageForm: FC<InjectedFormProps<FormDataType>> = (
-  props
-) => {
-  const { handleSubmit } = props;
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <Field
-        component="textarea"
-        name="newMessageBody"
-        placeholder="Enter your message"
-      />
-      <button>Send</button>
-    </form>
-  );
-};
-
-type FormDataType = {
-  newMessageBody: string;
-};
-export const AddNewMessageReduxForm = reduxForm<FormDataType>({
-  form: "dialogAddNewMessage",
-})(AddNewMessageForm);

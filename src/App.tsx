@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/reducers/app-reducer";
 import { AppStateType } from "./redux/store";
 import CircularProgress from "@mui/material/CircularProgress";
+import { logoutUser } from "./redux/reducers/auth-reducer";
 
 export class App extends React.Component<any> {
   componentDidMount() {
@@ -21,7 +22,7 @@ export class App extends React.Component<any> {
       <div className="app">
         {this.props.initialized ? (
           <div className="app-wrapper">
-            <HeaderContainer />
+            <HeaderContainer logoutUser={logoutUser} />
             <NavBar />
 
             <div className="content-wrapper">
