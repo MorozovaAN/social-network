@@ -6,7 +6,6 @@
 
 .post {
   display: flex;
-  margin: 24px;
   gap: 20px;
   align-items: center;
   padding: 8px;

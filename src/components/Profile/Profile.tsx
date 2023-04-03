@@ -28,7 +28,12 @@ export const Profile: FC<ProfilePropsType> = ({
         authorizedUserId={authorizedUserId}
         updateUserPhoto={updateUserPhoto}
       />
-      <MyPostsContainer profile={profile} authorizedUserId={authorizedUserId} />
+      {authorizedUserId === profile?.userId && (
+        <MyPostsContainer
+          profile={profile}
+          authorizedUserId={authorizedUserId}
+        />
+      )}
     </div>
   );
 };

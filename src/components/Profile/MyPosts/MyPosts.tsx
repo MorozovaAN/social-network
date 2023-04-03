@@ -1,7 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Post } from "./Post/Post";
+import TextField from "@mui/material/TextField";
 import { PostType, ProfileType } from "../../../redux/reducers/profile-reducer";
 import s from "./MyPosts.module.css";
+import Button from "@mui/material/Button";
 
 type MyPostsType = {
   posts: Array<PostType>;
@@ -18,6 +20,20 @@ export const MyPosts: FC<MyPostsType> = ({
   profile,
   authorizedUserId,
 }) => {
+  const [value, setValue] = useState("");
+  const sendPostHandler = () => {
+    addPost(value);
+    setValue("");
+  };
+
+  const cleanPostHandler = () => {
+    setValue("");
+  };
+
+  const textareaOnChange = (e: any) => {
+    setValue(e.target.value);
+  };
+
   const postsItem = posts.map((p) => (
     <Post
       key={p.id}
@@ -29,9 +45,41 @@ export const MyPosts: FC<MyPostsType> = ({
   ));
 
   return (
-    <div className={s.postsContainer}>
-      {postsItem}
-      <textarea></textarea>
+    <div className={s.MyPosts}>
+      <div className={s.postsContainer}>{postsItem}</div>
+
+      <TextField
+        label="Write new Post"
+        multiline
+        rows={3}
+        maxRows={6}
+        value={value}
+        onChange={textareaOnChange}
+        color="secondary"
+        classes={{ root: s.textarea }}
+      />
+
+      <div className={s.buttonsContainer}>
+        <Button
+          onClick={sendPostHandler}
+          variant="contained"
+          color="secondary"
+          classes={{ root: s.button }}
+          disabled={!value}
+        >
+          Send post
+        </Button>
+
+        <Button
+          onClick={cleanPostHandler}
+          variant="outlined"
+          color="secondary"
+          classes={{ root: s.button }}
+          disabled={!value}
+        >
+          Reset post
+        </Button>
+      </div>
     </div>
   );
 };
