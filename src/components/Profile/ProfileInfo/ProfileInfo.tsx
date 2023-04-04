@@ -28,26 +28,6 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
       updateUserPhoto(e.target.files[0]);
     }
   };
-  const handel = () => {
-    updateUserInfo({
-      userId: profile.userId,
-      aboutMe: "about me",
-      lookingForAJob: true,
-      lookingForAJobDescription:
-        "My stack: react, redux, typescript, js, html, css, scss, css-modules",
-      fullName: "Anastasia",
-      contacts: {
-        github: "",
-        vk: "",
-        facebook: "",
-        instagram: "",
-        twitter: "",
-        website: "",
-        youtube: "",
-        mainLink: "",
-      },
-    });
-  };
 
   return (
     <>
@@ -85,13 +65,16 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
             </div>
 
             <div className={s.userTextsInfo}>
-              <button onClick={handel}>update profile</button>
               <p className={s.name}>{profile.fullName}</p>
               <ProfileStatus
                 status={status}
                 updateUserStatus={updateUserStatus}
                 myProfile={authorizedUserId === profile.userId}
               />
+              <p>
+                <b>Stack: </b>
+                {profile.lookingForAJobDescription}
+              </p>
             </div>
           </div>
         </>

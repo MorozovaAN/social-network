@@ -35,6 +35,7 @@ export const ProfileStatus = (props: any) => {
     <div className={s.inputContainer}>
       <TextField
         value={status}
+        color="secondary"
         onChange={changeStatus}
         onBlur={updateStatus}
         onKeyUp={updateStatusOnEnter}
