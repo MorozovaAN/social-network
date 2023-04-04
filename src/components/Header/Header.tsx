@@ -8,10 +8,15 @@ import LoginIcon from "@mui/icons-material/Login";
 type HeaderPropsType = {
   logoutUser: () => void;
   isAuth: boolean;
-  login: string;
+  userName: string | undefined;
 };
 
-export const Header: FC<HeaderPropsType> = ({ logoutUser, isAuth, login }) => {
+export const Header: FC<HeaderPropsType> = ({
+  logoutUser,
+  isAuth,
+  userName,
+}) => {
+  console.log(userName);
   return (
     <header className={s.header}>
       <div className={s.logoContainer}>
@@ -24,7 +29,7 @@ export const Header: FC<HeaderPropsType> = ({ logoutUser, isAuth, login }) => {
       <div>
         {isAuth ? (
           <div className={s.userContainer}>
-            <p className={s.userName}>{login}</p>
+            <p className={s.userName}>{userName}</p>
             <LogoutIcon className={s.icon} onClick={() => logoutUser()} />
           </div>
         ) : (

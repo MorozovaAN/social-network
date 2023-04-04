@@ -9,10 +9,12 @@ import {
   ProfileType,
   updateUserStatus,
   updateUserPhoto,
+  updateUserInfo,
 } from "../../redux/reducers/profile-reducer";
 import { useParams } from "react-router-dom";
 import { withAuthRedirectComponent } from "../../HOC/withAuthRedirect";
 import { compose } from "redux";
+import { UserInfoType } from "../../api/api";
 
 type ProfileContainerType = {
   getUserProfile: (userID: string) => void;
@@ -22,6 +24,7 @@ type ProfileContainerType = {
   status: string;
   authorizedUserId: number;
   updateUserPhoto: (file: File) => void;
+  updateUserInfo: (info: UserInfoType) => void;
 };
 
 const ProfileContainer = (props: ProfileContainerType) => {
@@ -33,6 +36,7 @@ const ProfileContainer = (props: ProfileContainerType) => {
     status,
     authorizedUserId,
     updateUserPhoto,
+    updateUserInfo,
   } = props;
 
   const params = useParams<"*">();
@@ -51,6 +55,7 @@ const ProfileContainer = (props: ProfileContainerType) => {
       status={status}
       updateUserStatus={updateUserStatus}
       updateUserPhoto={updateUserPhoto}
+      updateUserInfo={updateUserInfo}
     />
   );
 };
@@ -66,6 +71,7 @@ type MapDispatchToPropsType = {
   getUserStatus: (userID: string) => void;
   updateUserStatus: (title: string) => void;
   updateUserPhoto: (file: File) => void;
+  updateUserInfo: (info: UserInfoType) => void;
 };
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -84,6 +90,7 @@ export default compose(
       getUserStatus,
       updateUserStatus,
       updateUserPhoto,
+      updateUserInfo,
     }
   ),
   withAuthRedirectComponent

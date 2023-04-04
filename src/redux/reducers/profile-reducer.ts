@@ -1,4 +1,4 @@
-import { profileAPI } from "../../api/api";
+import { profileAPI, UserInfoType } from "../../api/api";
 import { Dispatch } from "redux";
 
 export type ProfileType = {
@@ -42,7 +42,20 @@ const initialState: ProfilePageType = {
       likesCount: 21,
     },
   ],
-  profile: null,
+  profile: {
+    aboutMe: "",
+    contacts: {
+      facebook: "",
+      website: "",
+      vk: "",
+      twitter: "",
+      instagram: "",
+    },
+    fullName: "",
+    lookingForAJob: true,
+    lookingForAJobDescription: "",
+    photos: { small: null, large: null },
+  },
   status: "No status",
 };
 
@@ -134,10 +147,19 @@ export const updateUserPhoto =
   (file: File) => (dispatch: Dispatch<profileReducerActionsTypes>) => {
     profileAPI.updateUserPhoto(file).then((response) => {
       if (response.data.resultCode === 0) {
-        console.log(response);
         dispatch(setPhoto(response.data.data.photos));
       }
     });
   };
 
+export const updateUserInfo =
+  (info: UserInfoType) => (dispatch: Dispatch<profileReducerActionsTypes>) => {
+    profileAPI.updateUserInfo(info).then((response) => {
+      if (response.data.resultCode === 0) {
+        profileAPI.getProfile(String(info.userId)).then((response) => {
+          dispatch(setUserProfile(response.data));
+        });
+      }
+    });
+  };
 export default profileReducer;

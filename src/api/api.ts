@@ -39,6 +39,9 @@ export const profileAPI = {
       headers: { "Content-Type": "multipart/form-data" },
     });
   },
+  updateUserInfo(info: UserInfoType) {
+    return instance.put(`/profile`, info);
+  },
 };
 
 export const authAPI = {
@@ -51,4 +54,22 @@ export const authAPI = {
   logout() {
     return instance.delete(`auth/login`);
   },
+};
+
+export type UserInfoType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  aboutMe: string;
+  fullName: string;
+  contacts: {
+    github: string;
+    vk: string;
+    facebook: string;
+    instagram: string;
+    twitter: string;
+    website: string;
+    youtube: string;
+    mainLink: string;
+  };
 };

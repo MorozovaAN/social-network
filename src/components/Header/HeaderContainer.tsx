@@ -11,7 +11,7 @@ type PropsType = {
     login: string | null
   ) => void;
   isAuth: boolean;
-  login: string | null;
+  userName: string;
 };
 
 class HeaderContainer extends React.Component<any, PropsType> {
@@ -19,15 +19,15 @@ class HeaderContainer extends React.Component<any, PropsType> {
     return (
       <Header
         isAuth={this.props.isAuth}
-        login={this.props.login}
         logoutUser={this.props.logoutUser}
+        userName={this.props.userName}
       />
     );
   }
 }
 type MapStateToPropsType = {
   isAuth: boolean;
-  login: string | null;
+  userName: string;
 };
 type MapDispatchToPropsType = {
   logoutUser: () => void;
@@ -36,7 +36,7 @@ type MapDispatchToPropsType = {
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
   return {
     isAuth: state.auth.isAuth,
-    login: state.auth.login,
+    userName: state.profilePage.profile.fullName,
   };
 };
 

@@ -3,6 +3,7 @@ import { ProfileInfo } from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 import s from "./Profile.module.css";
 import { ProfileType } from "../../redux/reducers/profile-reducer";
+import { UserInfoType } from "../../api/api";
 
 type ProfilePropsType = {
   profile: ProfileType;
@@ -10,6 +11,7 @@ type ProfilePropsType = {
   status: string;
   updateUserStatus: (title: string) => void;
   updateUserPhoto: (file: File) => void;
+  updateUserInfo: (info: UserInfoType) => void;
 };
 
 export const Profile: FC<ProfilePropsType> = ({
@@ -18,6 +20,7 @@ export const Profile: FC<ProfilePropsType> = ({
   updateUserStatus,
   authorizedUserId,
   updateUserPhoto,
+  updateUserInfo,
 }) => {
   return (
     <div className={s.profile}>
@@ -27,6 +30,7 @@ export const Profile: FC<ProfilePropsType> = ({
         updateUserStatus={updateUserStatus}
         authorizedUserId={authorizedUserId}
         updateUserPhoto={updateUserPhoto}
+        updateUserInfo={updateUserInfo}
       />
       {authorizedUserId === profile?.userId && (
         <MyPostsContainer

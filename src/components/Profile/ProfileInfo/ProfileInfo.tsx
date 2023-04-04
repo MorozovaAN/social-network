@@ -4,6 +4,7 @@ import { ProfileStatus } from "./ProfileStatus/ProfileStatus";
 import defaultUserAvatar from "../../../images/defaultUserAvatar.svg";
 import { ProfileType } from "../../../redux/reducers/profile-reducer";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { UserInfoType } from "../../../api/api";
 
 type ProfileInfoType = {
   profile: ProfileType;
@@ -11,6 +12,7 @@ type ProfileInfoType = {
   updateUserStatus: (title: string) => void;
   authorizedUserId: number;
   updateUserPhoto: (file: File) => void;
+  updateUserInfo: (info: UserInfoType) => void;
 };
 
 export const ProfileInfo: FC<ProfileInfoType> = ({
@@ -19,11 +21,32 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
   updateUserStatus,
   authorizedUserId,
   updateUserPhoto,
+  updateUserInfo,
 }) => {
   const addFileHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       updateUserPhoto(e.target.files[0]);
     }
+  };
+  const handel = () => {
+    updateUserInfo({
+      userId: profile.userId,
+      aboutMe: "about me",
+      lookingForAJob: true,
+      lookingForAJobDescription:
+        "My stack: react, redux, typescript, js, html, css, scss, css-modules",
+      fullName: "Anastasia",
+      contacts: {
+        github: "",
+        vk: "",
+        facebook: "",
+        instagram: "",
+        twitter: "",
+        website: "",
+        youtube: "",
+        mainLink: "",
+      },
+    });
   };
 
   return (
@@ -62,6 +85,7 @@ export const ProfileInfo: FC<ProfileInfoType> = ({
             </div>
 
             <div className={s.userTextsInfo}>
+              <button onClick={handel}>update profile</button>
               <p className={s.name}>{profile.fullName}</p>
               <ProfileStatus
                 status={status}

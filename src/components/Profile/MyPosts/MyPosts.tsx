@@ -52,7 +52,6 @@ export const MyPosts: FC<MyPostsType> = ({
         label="Write new Post"
         multiline
         rows={3}
-        maxRows={6}
         value={value}
         onChange={textareaOnChange}
         color="secondary"
