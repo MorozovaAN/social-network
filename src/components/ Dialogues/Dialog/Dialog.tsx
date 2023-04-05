@@ -1,4 +1,4 @@
-import style from "../Dialogues.module.css";
+import s from "../Dialogues.module.css";
 import { NavLink } from "react-router-dom";
 import React from "react";
 
@@ -8,11 +8,12 @@ type DialogType = {
 };
 
 export const Dialog = (props: DialogType) => {
-  let path = `dialogues/${props.id}`;
+  const path = `dialogues/${props.id}`;
+
   return (
-    <li className={style.dialog}>
-      <NavLink className={style.link} to={path}>
-        {props.name}
+    <li className={s.dialog}>
+      <NavLink className={s.link} to={path}>
+        <p className={props.id === 2 ? s.active : ""}>{props.name}</p>
       </NavLink>
     </li>
   );

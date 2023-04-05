@@ -21,11 +21,7 @@ const initialState: DialoguesPageType = {
     { id: 4, name: "Max" },
     { id: 5, name: "Lena" },
   ],
-  messages: [
-    { id: 1, message: "Hi!" },
-    { id: 2, message: "What's app?" },
-    { id: 3, message: "Yo" },
-  ],
+  messages: [],
 };
 
 const dialoguesReducer = (

@@ -1,11 +1,87 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  border: 1px solid #d6dae4;
+  box-shadow: 0 0 6px rgba(156, 160, 172, 0.9);
+  border-radius: 10px;
 }
+
+.dialoguesContainer {
+  border-right: 2px solid #d6dae4;
+}
+
 .dialogues {
   list-style-type: none;
+  padding: 0 20px;
 }
+
+.dialog {
+  font-weight: 500;
+  padding: 20px;
+  border-bottom: 2px solid #d6dae4;
+}
+.dialog:last-child {
+  border: none;
+}
+
+.active {
+  font-weight: 600;
+  color: #9c27b0;
+}
+
 .link {
   color: inherit;
   text-decoration: none;
+}
+
+.messages {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.message {
+  border-right: 1px solid #d6dae4;
+  box-shadow: 0 0 4px rgba(156, 160, 172, 0.9);
+  padding: 10px;
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
+.messageAnswer {
+  align-self: flex-start;
+  border-right: 1px solid #d6dae4;
+  box-shadow: 0 0 4px rgba(156, 160, 172, 0.9);
+  padding: 10px;
+  width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 10px;
+}
+
+.textareaContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 26px;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.textareaContainer .textarea {
+  width: 506px;
+}
+
+.button {
+  width: 140px;
+}
+
+.buttonsContainer {
+  display: flex;
+  column-gap: 20px;
+  padding: 20px 0;
 }
